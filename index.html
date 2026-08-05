@@ -346,6 +346,10 @@
 
   .qn-legend{margin-top:12px; display:flex; flex-direction:column; gap:7px; font-size:11px; color:var(--ink-soft);}
   .qn-legend .row{display:flex; align-items:center; gap:8px;}
+  .qn-legend .row:nth-child(2){display:none;}
+  .doubt-toggle{display:none !important;}
+  button[id^="submitBtn"]{display:none !important;}
+  .retry-btn{margin-left:10px;}
   .qn-legend .dot{display:inline-block; width:12px; height:12px; flex:none; border:1.5px solid var(--paper-line); background:#fff;}
   .qn-legend .dot.answered{border-color:var(--correct); background:var(--correct-bg);}
   .qn-legend .dot.doubt{border-color:var(--brass); box-shadow:inset 0 0 0 1px var(--brass);}
@@ -370,6 +374,80 @@
   .review-item.ok{border-left:4px solid var(--correct);}
   .review-item.partial{border-left:4px solid var(--brass);}
   .review-item.bad{border-left:4px solid var(--wrong);}
+  .review-item .rmotivasi{
+    display:inline-block; margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:12px;
+    font-weight:600; letter-spacing:.02em; padding:4px 10px; border-radius:2px;
+  }
+  .review-item.ok .rmotivasi{color:var(--correct); background:var(--correct-bg);}
+  .review-item.partial .rmotivasi{color:var(--brass-dark); background:var(--brass-light);}
+  .review-item.bad .rmotivasi{color:var(--wrong); background:var(--wrong-bg);}
+  .review-item .rpembahasan{
+    margin-top:8px; padding:9px 11px; background:var(--paper); border:1px dashed var(--paper-line);
+    color:var(--ink-soft); font-size:13px; line-height:1.5;
+  }
+  .qcheck-row{margin-top:16px;}
+  .qcheck-btn{font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- OVERLAY FEEDBACK CEK JAWABAN (per soal) ---------- */
+  .qfeedback-box{display:none;}
+  .qfeedback-box.show{
+    display:flex; position:fixed; inset:0; z-index:500; align-items:center; justify-content:center;
+    background:rgba(28,43,57,.62); padding:20px;
+  }
+  .qfeedback-modal{
+    background:#fff; max-width:580px; width:100%; padding:30px 32px; position:relative;
+    border-top:6px solid var(--brass); box-shadow:0 20px 50px rgba(28,43,57,.35);
+    animation:feedback-pop .22s ease; max-height:86vh; overflow-y:auto;
+  }
+  @keyframes feedback-pop{from{opacity:0; transform:scale(.93);} to{opacity:1; transform:none;}}
+  .qfeedback-box.ok .qfeedback-modal{border-top-color:var(--correct);}
+  .qfeedback-box.partial .qfeedback-modal{border-top-color:var(--brass);}
+  .qfeedback-box.bad .qfeedback-modal{border-top-color:var(--wrong);}
+  .qfeedback-modal .rtitle{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:23px; margin-bottom:12px;}
+  .qfeedback-box.ok .qfeedback-modal .rtitle{color:var(--correct);}
+  .qfeedback-box.partial .qfeedback-modal .rtitle{color:var(--brass-dark);}
+  .qfeedback-box.bad .qfeedback-modal .rtitle{color:var(--wrong);}
+  .qfeedback-modal .rdetail{font-size:15.5px; color:var(--ink-soft); margin-bottom:16px; line-height:1.6;}
+  .qfeedback-modal .rmotivasi{
+    display:block; font-family:'IBM Plex Mono',monospace; font-size:19px; font-weight:700;
+    letter-spacing:.01em; padding:14px 16px; border-radius:3px; margin-bottom:16px; text-align:center;
+  }
+  .qfeedback-box.ok .qfeedback-modal .rmotivasi{color:var(--correct); background:var(--correct-bg);}
+  .qfeedback-box.partial .qfeedback-modal .rmotivasi{color:var(--brass-dark); background:var(--brass-light);}
+  .qfeedback-box.bad .qfeedback-modal .rmotivasi{color:var(--wrong); background:var(--wrong-bg);}
+  .qfeedback-modal .rpembahasan{
+    margin-top:4px; padding:14px 16px; background:var(--paper); border:1px dashed var(--paper-line);
+    color:var(--ink-soft); font-size:14.5px; line-height:1.6;
+  }
+  .qfeedback-modal .rpembahasan b.rp-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink); display:block; margin-bottom:6px;
+  }
+  .qfeedback-close{
+    margin-top:20px; width:100%; font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:14.5px;
+    background:var(--ink); color:var(--paper); border:none; padding:13px; cursor:pointer; letter-spacing:.03em;
+  }
+  .qfeedback-close:hover{background:var(--brass-dark);}
+  .review-item .rpembahasan b.rp-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--ink); display:block; margin-bottom:3px;
+  }
+
+  /* ---------- EFEK BINTANG BERTABURAN ---------- */
+  .star-burst-container{
+    position:fixed; inset:0; width:100vw; height:100vh; pointer-events:none;
+    overflow:hidden; z-index:9999;
+  }
+  .star-piece{
+    position:absolute; top:-40px; color:var(--brass);
+    animation-name:star-fall; animation-timing-function:ease-in; animation-fill-mode:forwards;
+    text-shadow:0 0 6px rgba(168,118,62,.35);
+  }
+  @keyframes star-fall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    8%{ opacity:1; }
+    100%{ transform:translateY(112vh) rotate(360deg); opacity:0; }
+  }
   .download-row{text-align:center; margin-top:22px;}
   .download-row p{font-size:12.5px; color:var(--ink-soft);}
 
@@ -519,6 +597,22 @@
     <h1>Besaran Pokok, Besaran Turunan &amp; Satuan</h1>
     <p class="subtitle">Mengukur dunia di sekitar kita — dari panjang meja hingga kecepatan sepeda.</p>
     <div class="ruler" id="headerRuler" style="margin-top:16px;"></div>
+
+    <div class="login-card" id="studentDataCard" style="margin-top:22px;">
+      <div class="eyebrow">Sebelum Mulai</div>
+      <h1>Isi Data Diri</h1>
+      <p class="subtitle">Isi data dirimu sekali di sini — akan otomatis digunakan untuk semua latihan dan evaluasi.</p>
+      <div class="field">
+        <label for="studentNameInput">Nama Lengkap</label>
+        <input type="text" id="studentNameInput" placeholder="Contoh: Ayu Lestari">
+      </div>
+      <div class="field">
+        <label for="studentClassInput">Kelas</label>
+        <input type="text" id="studentClassInput" placeholder="Contoh: VII-A">
+      </div>
+      <div class="login-error" id="studentDataError">Nama dan kelas wajib diisi terlebih dahulu.</div>
+    </div>
+
     <button type="button" class="btn big" id="startAppBtn">Mulai Belajar →</button>
   </div>
 
@@ -913,18 +1007,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard3">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName3">Nama Lengkap</label>
-        <input type="text" id="latihanName3" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass3">Kelas</label>
-        <input type="text" id="latihanClass3" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError3">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn3" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -970,6 +1055,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn3">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn3" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn3">🔁 Coba Lagi</button>
           <p id="sendStatus3">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1073,18 +1159,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard4">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName4">Nama Lengkap</label>
-        <input type="text" id="latihanName4" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass4">Kelas</label>
-        <input type="text" id="latihanClass4" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError4">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn4" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -1130,6 +1207,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn4">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn4" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn4">🔁 Coba Lagi</button>
           <p id="sendStatus4">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1138,24 +1216,15 @@
 
   <!-- ================= LATIHAN 2 (KONVERSI SATUAN) ================= -->
   <section class="panel" id="panel-latihan2">
-    <h2><span class="tag">Latihan 2</span>Uji Pemahamanmu — Konversi Satuan (10 Soal)</h2>
+    <h2><span class="tag">Latihan 2</span>Uji Pemahamanmu — Konversi Satuan (25 Soal)</h2>
     <div class="quiz-intro">
-      Latihan ini terdiri dari <strong>10 soal</strong> khusus tentang <strong>konversi satuan</strong> (panjang, massa, waktu, volume, dan prefiks SI), dengan berbagai jenis: pilihan ganda, pilihan ganda kompleks (centang), uraian singkat, jodohkan, dan benar/salah. Soal ditampilkan <strong>satu per satu</strong> — gunakan panel nomor di sebelah kanan untuk berpindah soal, dan tekan tombol <strong>🚩 Ragu-ragu</strong> jika kamu masih belum yakin dengan jawabanmu. Perhatikan juga sisa waktu pengerjaan di sudut kanan atas.
+      Latihan ini terdiri dari <strong>25 soal</strong> khusus tentang <strong>konversi satuan</strong> (panjang, massa, waktu, volume, dan prefiks SI), dengan berbagai jenis: pilihan ganda, pilihan ganda kompleks (centang), uraian singkat, jodohkan, dan benar/salah. Soal ditampilkan <strong>satu per satu</strong> — gunakan panel nomor di sebelah kanan untuk berpindah soal, dan tekan tombol <strong>🚩 Ragu-ragu</strong> jika kamu masih belum yakin dengan jawabanmu. Perhatikan juga sisa waktu pengerjaan di sudut kanan atas.
     </div>
 
     <div class="login-card" id="quizStartCard2">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName2">Nama Lengkap</label>
-        <input type="text" id="latihanName2" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass2">Kelas</label>
-        <input type="text" id="latihanClass2" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError2">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn2" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -1201,6 +1270,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn2">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn2" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn2">🔁 Coba Lagi</button>
           <p id="sendStatus2">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1215,18 +1285,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName">Nama Lengkap</label>
-        <input type="text" id="latihanName" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass">Kelas</label>
-        <input type="text" id="latihanClass" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -1272,6 +1333,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn">🔁 Coba Lagi</button>
           <p id="sendStatus">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1376,18 +1438,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard5">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName5">Nama Lengkap</label>
-        <input type="text" id="latihanName5" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass5">Kelas</label>
-        <input type="text" id="latihanClass5" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError5">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn5" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -1433,6 +1486,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn5">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn5" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn5">🔁 Coba Lagi</button>
           <p id="sendStatus5">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1523,18 +1577,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard6">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil latihanmu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName6">Nama Lengkap</label>
-        <input type="text" id="latihanName6" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass6">Kelas</label>
-        <input type="text" id="latihanClass6" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError6">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn6" style="width:100%;">Mulai Latihan</button>
     </div>
 
@@ -1580,6 +1625,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn6">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn6" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn6">🔁 Coba Lagi</button>
           <p id="sendStatus6">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1594,18 +1640,9 @@
     </div>
 
     <div class="login-card" id="quizStartCard7">
-      <div class="eyebrow">Sebelum Mulai</div>
-      <h1>Isi Data Diri</h1>
-      <p class="subtitle">Isi data dirimu dulu supaya hasil evaluasimu bisa dikenali gurumu.</p>
-      <div class="field">
-        <label for="latihanName7">Nama Lengkap</label>
-        <input type="text" id="latihanName7" placeholder="Contoh: Ayu Lestari">
-      </div>
-      <div class="field">
-        <label for="latihanClass7">Kelas</label>
-        <input type="text" id="latihanClass7" placeholder="Contoh: VII-A">
-      </div>
-      <div class="login-error" id="latihanLoginError7">Nama dan kelas wajib diisi terlebih dahulu.</div>
+      <div class="eyebrow">Siap Mengerjakan?</div>
+      <h1>Data dirimu sudah tercatat</h1>
+      <p class="subtitle">Nama dan kelasmu sudah tersimpan dari awal (lihat badge di bagian atas). Tekan tombol di bawah untuk langsung mulai mengerjakan.</p>
       <button class="btn big" id="startLatihanBtn7" style="width:100%;">Mulai Evaluasi</button>
     </div>
 
@@ -1653,6 +1690,7 @@
         <div class="download-row">
           <button class="btn big" id="sendSheetBtn7">📤 Kirim ke Rekap Guru</button>
           <button class="btn ghost big" id="downloadBtn7" style="margin-left:10px;">⬇ Unduh Salinan (cadangan)</button>
+          <button class="btn ghost big retry-btn" id="retryBtn7">🔁 Coba Lagi</button>
           <p id="sendStatus7">Nilaimu akan otomatis masuk ke spreadsheet rekap milik guru. Unduh salinan file di sebelahnya sebagai bukti cadangan.</p>
         </div>
       </div>
@@ -1708,45 +1746,48 @@ let studentClass = '';
 const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxe2S7gAU79rH0FfFJMRswRbchF__c-IfoLmDmEOGpB-MbbRGkaPNhIzYxoG1K8QKpcUg/exec";
 
 function bindQuizStart(ids, engine){
-  const nameInput = document.getElementById(ids.nameInput);
-  const classInput = document.getElementById(ids.classInput);
-  const errBox = document.getElementById(ids.errorBox);
   const startBtn = document.getElementById(ids.startBtn);
   const startCard = document.getElementById(ids.startCard);
   const quizArea = document.getElementById(ids.quizArea);
 
   function start(){
-    const name = nameInput.value.trim();
-    const kelas = classInput.value.trim();
-    if(!name || !kelas){
-      errBox.style.display = 'block';
-      return;
-    }
-    errBox.style.display = 'none';
-    studentName = name;
-    studentClass = kelas;
-    document.getElementById('badgeName').textContent = studentName;
-    document.getElementById('badgeClass').textContent = studentClass;
     startCard.style.display = 'none';
     quizArea.style.display = 'block';
     engine.init();
   }
 
   startBtn.addEventListener('click', start);
-  classInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') start(); });
 }
 
 buildRuler();
 buildRulerDemo();
 
 /* ============================================================
-   OPENING SCREEN (SAMPUL) -> KONTEN UTAMA
+   OPENING SCREEN (SAMPUL) -> DATA DIRI -> KONTEN UTAMA
 ============================================================ */
 document.getElementById('startAppBtn').addEventListener('click', ()=>{
+  const nameInput = document.getElementById('studentNameInput');
+  const classInput = document.getElementById('studentClassInput');
+  const errBox = document.getElementById('studentDataError');
+  const name = nameInput.value.trim();
+  const kelas = classInput.value.trim();
+  if(!name || !kelas){
+    errBox.style.display = 'block';
+    return;
+  }
+  errBox.style.display = 'none';
+  studentName = name;
+  studentClass = kelas;
+  document.getElementById('badgeName').textContent = studentName;
+  document.getElementById('badgeClass').textContent = studentClass;
+
   document.getElementById('openingScreen').classList.add('is-hidden');
   document.getElementById('appMain').classList.remove('is-hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
   syncNavHeight();
+});
+document.getElementById('studentClassInput').addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') document.getElementById('startAppBtn').click();
 });
 
 /* ============================================================
@@ -2388,18 +2429,83 @@ function shuffle(arr){
 }
 function pad2(n){ return n.toString().padStart(2,'0'); }
 
+/* ============================================================
+   FEEDBACK MOTIVASI ACAK (benar / sebagian / salah)
+============================================================ */
+const MOTIVASI_BENAR = [
+  'Mantap, jawabanmu tepat!',
+  'Keren, kamu paham konsep ini!',
+  'Hebat, terus pertahankan semangat belajarmu!',
+  'Betul sekali, kerja bagus!',
+  'Jawabanmu pas, kamu jagoan fisika!',
+  'Luar biasa, teruskan caramu belajar!',
+  'Cermat sekali, pertahankan ya!',
+  'Top markotop, pemahamanmu sudah oke!',
+  'Kamu berhasil menjawab dengan tepat, hebat!',
+  'Sip, konsepnya sudah kamu kuasai!'
+];
+const MOTIVASI_SEBAGIAN = [
+  'Sebagian sudah benar, sedikit lagi sempurna!',
+  'Lumayan! Ada beberapa bagian yang masih perlu diperbaiki.',
+  'Sudah di jalur yang tepat, cek lagi bagian yang belum pas.',
+  'Nyaris lengkap, yuk lengkapi bagian yang masih kurang.',
+  'Progresmu bagus, tinggal rapikan beberapa jawaban lagi.',
+  'Sudah paham sebagian besar, terus lengkapi sisanya!'
+];
+const MOTIVASI_SALAH = [
+  'Belum tepat, yuk cek pembahasannya!',
+  'Masih keliru, tidak apa-apa, coba pahami lagi ya.',
+  'Kurang pas, semangat belajar lagi!',
+  'Belum sesuai kunci jawaban, jangan menyerah!',
+  'Perlu ditinjau lagi, kamu pasti bisa memahaminya!',
+  'Masih ada yang perlu dipelajari lagi, semangat terus!',
+  'Coba baca pembahasannya supaya makin paham!',
+  'Belum tepat kali ini, ayo coba pahami konsepnya lagi.'
+];
+function pickMotivasi(fraction){
+  const pool = fraction === 1 ? MOTIVASI_BENAR : (fraction === 0 ? MOTIVASI_SALAH : MOTIVASI_SEBAGIAN);
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+/* ============================================================
+   EFEK BINTANG BERTABURAN — dipicu saat hasil kuis ditampilkan
+============================================================ */
+function spawnStarBurst(){
+  const container = document.createElement('div');
+  container.className = 'star-burst-container';
+  document.body.appendChild(container);
+  const glyphs = ['✦','✧','⭐','✨','★'];
+  const count = 26;
+  for(let i=0;i<count;i++){
+    const star = document.createElement('span');
+    star.className = 'star-piece';
+    star.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+    star.style.left = (Math.random()*100) + 'vw';
+    star.style.fontSize = (24 + Math.random()*30) + 'px';
+    star.style.animationDuration = (2.4 + Math.random()*2.2) + 's';
+    star.style.animationDelay = (Math.random()*0.6) + 's';
+    star.style.opacity = (0.6 + Math.random()*0.4).toFixed(2);
+    container.appendChild(star);
+  }
+  setTimeout(()=>{ container.remove(); }, 5200);
+}
+
 const quiz = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'Manakah yang termasuk besaran pokok?',
-    options:['Luas','Gaya','Waktu','Kecepatan'], answer:2 },
+    options:['Luas','Gaya','Waktu','Kecepatan'], answer:2,
+    expl:'Waktu adalah salah satu dari tujuh besaran pokok dalam SI, dengan satuan sekon. Luas, gaya, dan kecepatan adalah besaran turunan karena diperoleh dari kombinasi besaran pokok.' },
   { id:2, type:'mc', prompt:'Satuan SI untuk besaran massa adalah…',
-    options:['Gram','Ons','Kilogram','Ton'], answer:2 },
+    options:['Gram','Ons','Kilogram','Ton'], answer:2,
+    expl:'Satuan SI (baku internasional) untuk massa adalah kilogram (kg). Gram, ons, dan ton adalah satuan massa juga, tetapi bukan satuan SI/baku yang ditetapkan untuk besaran pokok massa.' },
 
   // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
   { id:3, type:'checkbox', prompt:'Centang semua yang termasuk BESARAN POKOK.',
-    options:['Panjang','Massa','Kecepatan','Waktu','Luas','Suhu'], answer:[0,1,3,5] },
+    options:['Panjang','Massa','Kecepatan','Waktu','Luas','Suhu'], answer:[0,1,3,5],
+    expl:'Besaran pokok yang benar adalah panjang, massa, waktu, dan suhu. Kecepatan dan luas adalah besaran turunan karena diturunkan dari besaran pokok (kecepatan = panjang/waktu, luas = panjang × panjang).' },
   { id:4, type:'checkbox', prompt:'Centang semua yang termasuk contoh SATUAN TIDAK BAKU.',
-    options:['Depa','Meter','Jengkal','Kilogram','Hasta','Sekon'], answer:[0,2,4] },
+    options:['Depa','Meter','Jengkal','Kilogram','Hasta','Sekon'], answer:[0,2,4],
+    expl:'Depa, jengkal, dan hasta adalah satuan tidak baku karena hasil ukurnya berbeda-beda antar orang. Meter, kilogram, dan sekon adalah satuan baku (SI) yang nilainya tetap dan diakui secara internasional.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Lengkapi satuan SI untuk besaran pokok berikut ini.',
@@ -2407,27 +2513,33 @@ const quiz = [
       {label:'Satuan SI untuk Panjang', accepted:['meter','m']},
       {label:'Satuan SI untuk Massa', accepted:['kilogram','kg']},
       {label:'Satuan SI untuk Waktu', accepted:['sekon','detik','s']}
-    ]},
+    ],
+    expl:'Satuan SI untuk panjang adalah meter (m), untuk massa adalah kilogram (kg), dan untuk waktu adalah sekon (s). Ketiganya termasuk tujuh besaran pokok dasar dalam Sistem Internasional.' },
   { id:6, type:'short', prompt:'Lengkapi satuan untuk besaran turunan berikut ini.',
     blanks:[
       {label:'Satuan Kecepatan', accepted:['m/s','meter per sekon','meter/sekon']},
       {label:'Satuan Luas', accepted:['m2','m²','meter persegi']},
       {label:'Satuan Gaya', accepted:['newton','n']}
-    ]},
+    ],
+    expl:'Kecepatan = jarak/waktu sehingga satuannya m/s. Luas = panjang × panjang sehingga satuannya m². Gaya memiliki satuan turunan khusus, yaitu newton (N), dari kg·m/s².' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan besaran pokok berikut dengan satuannya.',
     left:['Panjang','Massa','Waktu','Suhu'],
     rightPool:['meter','kilogram','sekon','kelvin'],
-    answer:['meter','kilogram','sekon','kelvin'] },
+    answer:['meter','kilogram','sekon','kelvin'],
+    expl:'Pasangan besaran pokok dan satuan SI-nya: panjang–meter, massa–kilogram, waktu–sekon, dan suhu–kelvin. Ini adalah empat dari tujuh besaran pokok yang wajib dihafal.' },
   { id:8, type:'match', prompt:'Jodohkan besaran turunan berikut dengan satuannya.',
     left:['Luas','Volume','Kecepatan','Massa jenis'],
     rightPool:['m²','m³','m/s','kg/m³'],
-    answer:['m²','m³','m/s','kg/m³'] },
+    answer:['m²','m³','m/s','kg/m³'],
+    expl:'Luas satuannya m² (panjang×panjang), volume m³ (panjang×panjang×panjang), kecepatan m/s (jarak/waktu), dan massa jenis kg/m³ (massa/volume). Semua diturunkan dari besaran pokok.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Satuan adalah pembanding yang digunakan dalam suatu pengukuran.', answer:true },
-  { id:10, type:'tf', statement:'Kecepatan termasuk besaran pokok.', answer:false },
+  { id:9, type:'tf', statement:'Satuan adalah pembanding yang digunakan dalam suatu pengukuran.', answer:true,
+    expl:'Pernyataan ini benar. Satuan berfungsi sebagai pembanding standar agar hasil pengukuran suatu besaran dapat dinyatakan secara jelas dan dipahami bersama.' },
+  { id:10, type:'tf', statement:'Kecepatan termasuk besaran pokok.', answer:false,
+    expl:'Pernyataan ini salah. Kecepatan adalah besaran turunan karena diperoleh dari pembagian besaran pokok panjang dengan besaran pokok waktu (v = s/t).' },
 ];
 
 /* ============================================================
@@ -2436,15 +2548,19 @@ const quiz = [
 const quiz3 = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'5 km sama dengan … m.',
-    options:['50 m','500 m','5.000 m','50.000 m'], answer:2 },
+    options:['50 m','500 m','5.000 m','50.000 m'], answer:2,
+    expl:'1 km = 1.000 m, sehingga 5 km = 5 × 1.000 m = 5.000 m. Setiap naik satu anak tangga satuan panjang ke kanan (misalnya km ke m), nilai dikalikan 1.000 karena melewati tiga tingkat.' },
   { id:2, type:'mc', prompt:'2 jam sama dengan … sekon.',
-    options:['120 sekon','3.600 sekon','7.200 sekon','86.400 sekon'], answer:2 },
+    options:['120 sekon','3.600 sekon','7.200 sekon','86.400 sekon'], answer:2,
+    expl:'1 jam = 60 menit = 3.600 sekon. Maka 2 jam = 2 × 3.600 sekon = 7.200 sekon.' },
 
-  // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
-  { id:3, type:'checkbox', prompt:'Centang semua yang termasuk SATUAN PANJANG.',
-    options:['km','kg','cm','sekon','mm','liter'], answer:[0,2,4] },
-  { id:4, type:'checkbox', prompt:'Centang pernyataan yang BENAR tentang tangga konversi satuan panjang.',
-    options:['Setiap turun satu anak tangga (ke kanan), nilai dikalikan 10','Setiap naik satu anak tangga (ke kiri), nilai dikalikan 10','1 km = 1.000 m','1 m = 100 km','1 cm = 10 mm','1 mm = 10 cm'], answer:[0,2,4] },
+  // ---- PILIHAN GANDA — KONVERSI KECEPATAN km/jam KE m/s (2) ----
+  { id:3, type:'mc', prompt:'18 km/jam = .... m/s',
+    options:['1,8 m/s','5 m/s','18 m/s','64,8 m/s'], answer:1,
+    expl:'Untuk mengubah km/jam ke m/s, nilai dibagi 3,6 (karena 1 km/jam = 1.000 m ÷ 3.600 s = 1/3,6 m/s). Jadi 18 km/jam = 18 ÷ 3,6 = 5 m/s.' },
+  { id:4, type:'mc', prompt:'36 km/jam = .... m/s',
+    options:['3,6 m/s','10 m/s','36 m/s','129,6 m/s'], answer:1,
+    expl:'Nilai km/jam diubah ke m/s dengan membagi 3,6. Jadi 36 km/jam = 36 ÷ 3,6 = 10 m/s.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Lengkapi konversi satuan panjang berikut ini.',
@@ -2452,27 +2568,80 @@ const quiz3 = [
       {label:'3 km = ... m', accepted:['3000','3.000']},
       {label:'250 cm = ... m', accepted:['2.5','2,5']},
       {label:'70 mm = ... cm', accepted:['7']}
-    ]},
+    ],
+    expl:'3 km = 3 × 1.000 m = 3.000 m. 250 cm = 250 ÷ 100 m = 2,5 m. 70 mm = 70 ÷ 10 cm = 7 cm.' },
   { id:6, type:'short', prompt:'Lengkapi konversi satuan massa berikut ini.',
     blanks:[
       {label:'2 kg = ... g', accepted:['2000','2.000']},
       {label:'500 g = ... kg', accepted:['0.5','0,5']},
       {label:'3 ton = ... kg', accepted:['3000','3.000']}
-    ]},
+    ],
+    expl:'2 kg = 2 × 1.000 g = 2.000 g. 500 g = 500 ÷ 1.000 kg = 0,5 kg. 1 ton = 1.000 kg, sehingga 3 ton = 3.000 kg.' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan satuan berikut dengan nilai konversinya ke satuan dasar SI.',
     left:['1 km','1 cm','1 mg','1 jam'],
     rightPool:['1.000 m','0,01 m','0,001 g','3.600 s'],
-    answer:['1.000 m','0,01 m','0,001 g','3.600 s'] },
+    answer:['1.000 m','0,01 m','0,001 g','3.600 s'],
+    expl:'1 km = 1.000 m, 1 cm = 0,01 m, 1 mg = 0,001 g, dan 1 jam = 3.600 s. Semua ini adalah hasil konversi ke satuan dasar SI menggunakan aturan kelipatan 10 (kecuali waktu).' },
   { id:8, type:'match', prompt:'Jodohkan awalan (prefiks) satuan dengan faktor pengalinya.',
     left:['kilo','hekto','desi','mili'],
     rightPool:['1.000','100','0,1','0,001'],
-    answer:['1.000','100','0,1','0,001'] },
+    answer:['1.000','100','0,1','0,001'],
+    expl:'Kilo = ×1.000, hekto = ×100, desi = ×0,1, dan mili = ×0,001. Prefiks-prefiks ini digunakan untuk memperbesar atau memperkecil satuan dasar SI.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Satuan waktu mengikuti kelipatan 10 seperti satuan panjang dan massa.', answer:false },
-  { id:10, type:'tf', statement:'1 liter sama dengan 1 dm³.', answer:true },
+  { id:9, type:'tf', statement:'Satuan waktu mengikuti kelipatan 10 seperti satuan panjang dan massa.', answer:false,
+    expl:'Pernyataan ini salah. Satuan waktu tidak mengikuti kelipatan 10 (misalnya 1 menit = 60 sekon, 1 jam = 60 menit), berbeda dengan satuan panjang dan massa yang mengikuti kelipatan 10.' },
+  { id:10, type:'tf', statement:'1 liter sama dengan 1 dm³.', answer:true,
+    expl:'Pernyataan ini benar. Berdasarkan definisi satuan volume, 1 liter memang setara dengan 1 dm³ (desimeter kubik).' },
+
+  // ---- PILIHAN GANDA TAMBAHAN — KONVERSI LUAS, WAKTU, MASSA, PANJANG, NOTASI (15) ----
+  { id:11, type:'mc', prompt:'Nilai 25.000 mm² jika diubah ke satuan m² adalah ....',
+    options:['0,25 m²','0,025 m²','0,0025 m²','2,5 m²'], answer:2,
+    expl:'1 m² = 1.000.000 mm² (karena 1 m = 1.000 mm, maka 1 m² = 1.000² mm²). Jadi 25.000 mm² = 25.000 ÷ 1.000.000 m² = 0,0025 m².' },
+  { id:12, type:'mc', prompt:'Luas 350 cm² sama dengan ....',
+    options:['0,35 m²','0,035 m²','0,0035 m²','3,5 m²'], answer:2,
+    expl:'1 m² = 10.000 cm² (karena 1 m = 100 cm, maka 1 m² = 100² cm²). Jadi 350 cm² = 350 ÷ 10.000 m² = 0,0035 m².' },
+  { id:13, type:'mc', prompt:'Luas 8 dm² jika dinyatakan dalam m² adalah ....',
+    options:['0,8 m²','0,08 m²','0,008 m²','8 m²'], answer:1,
+    expl:'1 m² = 100 dm² (karena 1 m = 10 dm, maka 1 m² = 10² dm²). Jadi 8 dm² = 8 ÷ 100 m² = 0,08 m².' },
+  { id:14, type:'mc', prompt:'Luas 75.000 mm² setara dengan ....',
+    options:['0,75 m²','0,075 m²','0,0075 m²','7,5 m²'], answer:1,
+    expl:'1 m² = 1.000.000 mm². Jadi 75.000 mm² = 75.000 ÷ 1.000.000 m² = 0,075 m².' },
+  { id:15, type:'mc', prompt:'Waktu 1 jam sama dengan ....',
+    options:['60 sekon','600 sekon','3.600 sekon','36.000 sekon'], answer:2,
+    expl:'1 jam = 60 menit, dan 1 menit = 60 sekon, sehingga 1 jam = 60 × 60 sekon = 3.600 sekon.' },
+  { id:16, type:'mc', prompt:'Waktu 2,5 jam sama dengan ....',
+    options:['7.200 sekon','8.000 sekon','9.000 sekon','9.600 sekon'], answer:2,
+    expl:'1 jam = 3.600 sekon, sehingga 2,5 jam = 2,5 × 3.600 sekon = 9.000 sekon.' },
+  { id:17, type:'mc', prompt:'72 km/jam = .... m/s',
+    options:['7,2 m/s','20 m/s','72 m/s','259,2 m/s'], answer:1,
+    expl:'Nilai km/jam diubah ke m/s dengan membagi 3,6. Jadi 72 km/jam = 72 ÷ 3,6 = 20 m/s.' },
+  { id:18, type:'mc', prompt:'Massa 7,5 ton setara dengan ....',
+    options:['750 kg','7.500 kg','75.000 kg','750.000 kg'], answer:1,
+    expl:'1 ton = 1.000 kg, sehingga 7,5 ton = 7,5 × 1.000 kg = 7.500 kg.' },
+  { id:19, type:'mc', prompt:'Panjang 2,5 km sama dengan ....',
+    options:['25 m','250 m','2.500 m','25.000 m'], answer:2,
+    expl:'1 km = 1.000 m, sehingga 2,5 km = 2,5 × 1.000 m = 2.500 m.' },
+  { id:20, type:'mc', prompt:'Panjang 0,8 km sama dengan ....',
+    options:['8 m','80 m','800 m','8.000 m'], answer:2,
+    expl:'1 km = 1.000 m, sehingga 0,8 km = 0,8 × 1.000 m = 800 m.' },
+  { id:21, type:'mc', prompt:'Muatan listrik 4 μC (mikrocoulomb) sama dengan ....',
+    options:['4 × 10⁻³ C','4 × 10⁻⁶ C','4 × 10⁻⁹ C','4 × 10⁶ C'], answer:1,
+    expl:'Prefiks mikro (μ) berarti × 10⁻⁶, sehingga 4 μC = 4 × 10⁻⁶ C.' },
+  { id:22, type:'mc', prompt:'Muatan listrik 250 μC sama dengan ....',
+    options:['2,5 × 10⁻⁴ C','2,5 × 10⁻⁶ C','2,5 × 10⁻³ C','2,5 × 10⁴ C'], answer:0,
+    expl:'250 μC = 250 × 10⁻⁶ C. Diubah ke notasi baku, 250 × 10⁻⁶ = 2,5 × 10⁻⁴ C.' },
+  { id:23, type:'mc', prompt:'Kapasitas data 20 GByte sama dengan ....',
+    options:['20 × 10⁶ Byte','20 × 10⁹ Byte','20 × 10¹² Byte','20 × 10³ Byte'], answer:1,
+    expl:'Prefiks giga (G) berarti × 10⁹, sehingga 20 GByte = 20 × 10⁹ Byte.' },
+  { id:24, type:'mc', prompt:'Panjang 25 nm sama dengan ....',
+    options:['25 × 10⁻⁶ m','25 × 10⁻⁹ m','2,5 × 10⁻⁸ m','2,5 × 10⁻⁹ m'], answer:2,
+    expl:'Prefiks nano (n) berarti × 10⁻⁹, sehingga 25 nm = 25 × 10⁻⁹ m. Diubah ke notasi baku, 25 × 10⁻⁹ = 2,5 × 10⁻⁸ m.' },
+  { id:25, type:'mc', prompt:'Luas 5000 cm² jika dinyatakan dalam m² adalah ....',
+    options:['0,5 m²','5 m²','50 m²','500 m²'], answer:1,
+    expl:'1 m² = 10.000 cm². Jadi 5.000 cm² = 5.000 ÷ 10.000 m² = 0,5 m².' },
 ];
 
 /* ============================================================
@@ -2481,15 +2650,19 @@ const quiz3 = [
 const quizNotasi = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'Bentuk notasi ilmiah dari 45.000 adalah…',
-    options:['4,5 × 10⁴','45 × 10³','4,5 × 10³','0,45 × 10⁵'], answer:0 },
+    options:['4,5 × 10⁴','45 × 10³','4,5 × 10³','0,45 × 10⁵'], answer:0,
+    expl:'Notasi ilmiah harus berbentuk a × 10ⁿ dengan 1 ≤ a < 10. Angka 45.000 = 4,5 × 10.000 = 4,5 × 10⁴. Pilihan lain tidak memenuhi syarat 1 ≤ a < 10.' },
   { id:2, type:'mc', prompt:'Bentuk notasi ilmiah dari 0,0032 adalah…',
-    options:['3,2 × 10⁻³','3,2 × 10³','32 × 10⁻⁴','0,32 × 10⁻²'], answer:0 },
+    options:['3,2 × 10⁻³','3,2 × 10³','32 × 10⁻⁴','0,32 × 10⁻²'], answer:0,
+    expl:'0,0032 dipindah komanya 3 kali ke kanan menjadi 3,2, sehingga ditulis 3,2 × 10⁻³. Karena bilangan aslinya lebih kecil dari 1, pangkatnya harus negatif.' },
 
   // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
   { id:3, type:'checkbox', prompt:'Centang semua bilangan yang ditulis dengan notasi ilmiah yang BENAR (memenuhi 1 ≤ a < 10).',
-    options:['3,5 × 10⁴','45 × 10³','7,2 × 10⁻²','0,8 × 10⁵','9,1 × 10¹','12 × 10²'], answer:[0,2,4] },
+    options:['3,5 × 10⁴','45 × 10³','7,2 × 10⁻²','0,8 × 10⁵','9,1 × 10¹','12 × 10²'], answer:[0,2,4],
+    expl:'Notasi ilmiah yang benar memiliki mantissa a dengan 1 ≤ a < 10, yaitu 3,5 × 10⁴; 7,2 × 10⁻²; dan 9,1 × 10¹. Pilihan 45 × 10³, 0,8 × 10⁵, dan 12 × 10² salah karena mantissanya di luar rentang 1–10.' },
   { id:4, type:'checkbox', prompt:'Centang semua contoh BILANGAN SANGAT KECIL (notasi ilmiahnya berpangkat negatif).',
-    options:['Massa elektron ≈ 9,1 × 10⁻³¹ kg','Jarak Bumi–Matahari ≈ 1,5 × 10⁸ km','Diameter virus ≈ 1 × 10⁻⁷ m','Kecepatan cahaya ≈ 3 × 10⁸ m/s','Jari-jari atom ≈ 1 × 10⁻¹⁰ m','Penduduk dunia ≈ 8 × 10⁹ jiwa'], answer:[0,2,4] },
+    options:['Massa elektron ≈ 9,1 × 10⁻³¹ kg','Jarak Bumi–Matahari ≈ 1,5 × 10⁸ km','Diameter virus ≈ 1 × 10⁻⁷ m','Kecepatan cahaya ≈ 3 × 10⁸ m/s','Jari-jari atom ≈ 1 × 10⁻¹⁰ m','Penduduk dunia ≈ 8 × 10⁹ jiwa'], answer:[0,2,4],
+    expl:'Bilangan sangat kecil memiliki pangkat negatif pada notasi ilmiahnya, yaitu massa elektron (10⁻³¹), diameter virus (10⁻⁷), dan jari-jari atom (10⁻¹⁰). Jarak Bumi-Matahari, kecepatan cahaya, dan penduduk dunia berpangkat positif karena bilangannya besar.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Tentukan nilai a (mantissa) untuk notasi ilmiah dari bilangan berikut ini.',
@@ -2497,27 +2670,33 @@ const quizNotasi = [
       {label:'75.000 → a = ...', accepted:['7.5','7,5']},
       {label:'0,00061 → a = ...', accepted:['6.1','6,1']},
       {label:'9.000.000 → a = ...', accepted:['9']}
-    ]},
+    ],
+    expl:'Mantissa (a) diperoleh dengan menggeser koma sampai hanya tersisa satu digit bukan nol di depan koma: 75.000 → 7,5; 0,00061 → 6,1; dan 9.000.000 → 9.' },
   { id:6, type:'short', prompt:'Tentukan nilai n (pangkat/eksponen) untuk notasi ilmiah dari bilangan berikut ini.',
     blanks:[
       {label:'75.000 → n = ...', accepted:['4']},
       {label:'0,00061 → n = ...', accepted:['-4']},
       {label:'9.000.000 → n = ...', accepted:['6']}
-    ]},
+    ],
+    expl:'Pangkat (n) dihitung dari jumlah langkah pemindahan koma: 75.000 → 4 langkah ke kiri (n=4), 0,00061 → 4 langkah ke kanan (n=-4), dan 9.000.000 → 6 langkah ke kiri (n=6).' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan bilangan berikut dengan bentuk notasi ilmiahnya.',
     left:['4.000','0,006','520.000','0,0009'],
     rightPool:['4 × 10³','6 × 10⁻³','5,2 × 10⁵','9 × 10⁻⁴'],
-    answer:['4 × 10³','6 × 10⁻³','5,2 × 10⁵','9 × 10⁻⁴'] },
+    answer:['4 × 10³','6 × 10⁻³','5,2 × 10⁵','9 × 10⁻⁴'],
+    expl:'4.000 = 4 × 10³; 0,006 = 6 × 10⁻³; 520.000 = 5,2 × 10⁵; dan 0,0009 = 9 × 10⁻⁴. Setiap pasangan diperoleh dengan menggeser koma hingga mantissa berada di antara 1 dan 10.' },
   { id:8, type:'match', prompt:'Jodohkan notasi ilmiah berikut dengan besaran sains yang mendekati nilainya.',
     left:['≈3 × 10⁸ m/s','≈9,1 × 10⁻³¹ kg','≈1,5 × 10⁸ km','≈6,02 × 10²³ /mol'],
     rightPool:['Kecepatan cahaya','Massa elektron','Jarak Bumi–Matahari','Bilangan Avogadro'],
-    answer:['Kecepatan cahaya','Massa elektron','Jarak Bumi–Matahari','Bilangan Avogadro'] },
+    answer:['Kecepatan cahaya','Massa elektron','Jarak Bumi–Matahari','Bilangan Avogadro'],
+    expl:'Nilai-nilai ini adalah konstanta fisika terkenal: kecepatan cahaya ≈3×10⁸ m/s, massa elektron ≈9,1×10⁻³¹ kg, jarak Bumi–Matahari ≈1,5×10⁸ km, dan bilangan Avogadro ≈6,02×10²³ /mol.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Notasi ilmiah 12 × 10⁴ sudah ditulis dengan benar.', answer:false },
-  { id:10, type:'tf', statement:'Semakin kecil suatu bilangan (mendekati nol), semakin negatif pangkat pada notasi ilmiahnya.', answer:true },
+  { id:9, type:'tf', statement:'Notasi ilmiah 12 × 10⁴ sudah ditulis dengan benar.', answer:false,
+    expl:'Pernyataan ini salah. Mantissa 12 tidak memenuhi syarat 1 ≤ a < 10, sehingga penulisan yang benar adalah 1,2 × 10⁵.' },
+  { id:10, type:'tf', statement:'Semakin kecil suatu bilangan (mendekati nol), semakin negatif pangkat pada notasi ilmiahnya.', answer:true,
+    expl:'Pernyataan ini benar. Semakin dekat suatu bilangan ke nol (bilangan pecahan sangat kecil), semakin banyak koma digeser ke kanan, sehingga pangkatnya semakin negatif.' },
 ];
 
 /* ============================================================
@@ -2526,15 +2705,19 @@ const quizNotasi = [
 const quiz4 = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'Jumlah angka penting pada bilangan 205 adalah…',
-    options:['1','2','3','4'], answer:2 },
+    options:['1','2','3','4'], answer:2,
+    expl:'Bilangan 205 memiliki 3 angka penting: angka 2 dan 5 adalah angka bukan nol (pasti penting), dan angka 0 di antara dua angka bukan nol juga termasuk angka penting.' },
   { id:2, type:'mc', prompt:'Jumlah angka penting pada bilangan 0,0056 adalah…',
-    options:['1','2','3','4'], answer:1 },
+    options:['1','2','3','4'], answer:1,
+    expl:'Bilangan 0,0056 memiliki 2 angka penting, yaitu 5 dan 6. Angka nol di depan angka bukan nol (sebelum angka pasti) tidak termasuk angka penting karena hanya berfungsi sebagai penunjuk letak koma.' },
 
   // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
   { id:3, type:'checkbox', prompt:'Centang semua bilangan berikut yang memiliki 3 angka penting.',
-    options:['4,50','0,0032','206','1.250','3,20 × 10²','0,00500'], answer:[0,2,4,5] },
+    options:['4,50','0,0032','206','1.250','3,20 × 10²','0,00500'], answer:[0,2,4,5],
+    expl:'4,50 (3 AP), 206 (3 AP), 3,20 × 10² (3 AP), dan 0,00500 (3 AP, karena nol di belakang angka bukan nol setelah koma dihitung) semuanya memiliki 3 angka penting. Sedangkan 0,0032 hanya 2 AP dan 1.250 memiliki 4 AP.' },
   { id:4, type:'checkbox', prompt:'Centang semua ATURAN angka penting berikut yang BENAR.',
-    options:['Semua angka bukan nol termasuk angka penting','Angka nol yang terletak di depan angka bukan nol (sebelum angka pasti) termasuk angka penting','Angka nol di antara dua angka bukan nol termasuk angka penting','Notasi ilmiah tidak dapat digunakan untuk menunjukkan jumlah angka penting','Angka nol di belakang koma desimal dan di belakang angka bukan nol termasuk angka penting','Semakin banyak angka penting suatu hasil pengukuran, semakin rendah ketelitiannya'], answer:[0,2,4] },
+    options:['Semua angka bukan nol termasuk angka penting','Angka nol yang terletak di depan angka bukan nol (sebelum angka pasti) termasuk angka penting','Angka nol di antara dua angka bukan nol termasuk angka penting','Notasi ilmiah tidak dapat digunakan untuk menunjukkan jumlah angka penting','Angka nol di belakang koma desimal dan di belakang angka bukan nol termasuk angka penting','Semakin banyak angka penting suatu hasil pengukuran, semakin rendah ketelitiannya'], answer:[0,2,4],
+    expl:'Aturan yang benar: semua angka bukan nol adalah angka penting, angka nol di antara dua angka bukan nol termasuk angka penting, dan angka nol di belakang koma setelah angka bukan nol termasuk angka penting. Angka nol di depan angka bukan nol BUKAN angka penting, notasi ilmiah justru dapat menunjukkan jumlah AP dengan jelas, dan semakin banyak AP justru menunjukkan ketelitian yang semakin tinggi, bukan rendah.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Tentukan jumlah angka penting dari bilangan berikut ini.',
@@ -2542,41 +2725,51 @@ const quiz4 = [
       {label:'304 → jumlah AP = ...', accepted:['3']},
       {label:'0,0070 → jumlah AP = ...', accepted:['2']},
       {label:'12,50 → jumlah AP = ...', accepted:['4']}
-    ]},
+    ],
+    expl:'304 memiliki 3 AP (nol di antara angka bukan nol dihitung). 0,0070 memiliki 2 AP (nol di depan tidak dihitung, nol di belakang setelah angka bukan nol dihitung). 12,50 memiliki 4 AP (semua angka termasuk nol di belakang koma dihitung).' },
   { id:6, type:'short', prompt:'Tentukan hasil pembulatan berikut sesuai jumlah angka penting yang diminta.',
     blanks:[
       {label:'12,346 dibulatkan menjadi 3 angka penting = ...', accepted:['12,3','12.3']},
       {label:'0,04567 dibulatkan menjadi 2 angka penting = ...', accepted:['0,046','0.046']},
       {label:'2,678 dibulatkan menjadi 3 angka penting = ...', accepted:['2,68','2.68']}
-    ]},
+    ],
+    expl:'12,346 dibulatkan ke 3 AP menjadi 12,3 (digit ke-4 yaitu 4 dibulatkan ke bawah). 0,04567 dibulatkan ke 2 AP menjadi 0,046. 2,678 dibulatkan ke 3 AP menjadi 2,68 (digit ke-4 yaitu 8 membulatkan ke atas).' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan bilangan berikut dengan jumlah angka pentingnya.',
     left:['4 × 10²','0,25','306','12,00'],
     rightPool:['1 AP','2 AP','3 AP','4 AP'],
-    answer:['1 AP','2 AP','3 AP','4 AP'] },
+    answer:['1 AP','2 AP','3 AP','4 AP'],
+    expl:'4 × 10² memiliki 1 AP (hanya angka 4). 0,25 memiliki 2 AP. 306 memiliki 3 AP (nol di tengah dihitung). 12,00 memiliki 4 AP (nol di belakang koma dihitung sebagai angka penting).' },
   { id:8, type:'match', prompt:'Jodohkan istilah berikut dengan penjelasannya dalam aturan angka penting.',
     left:['Angka penting','Angka taksiran','Angka pasti','Notasi ilmiah'],
     rightPool:['Semua angka hasil pengukuran yang terdiri dari angka pasti dan satu angka taksiran','Angka terakhir hasil pengukuran yang nilainya diperkirakan/tidak pasti','Angka yang diperoleh dari pembacaan skala alat ukur secara langsung dan pasti benar','Cara penulisan bilangan dalam bentuk a × 10ⁿ yang juga menunjukkan jumlah angka penting dengan jelas'],
-    answer:['Semua angka hasil pengukuran yang terdiri dari angka pasti dan satu angka taksiran','Angka terakhir hasil pengukuran yang nilainya diperkirakan/tidak pasti','Angka yang diperoleh dari pembacaan skala alat ukur secara langsung dan pasti benar','Cara penulisan bilangan dalam bentuk a × 10ⁿ yang juga menunjukkan jumlah angka penting dengan jelas'] },
+    answer:['Semua angka hasil pengukuran yang terdiri dari angka pasti dan satu angka taksiran','Angka terakhir hasil pengukuran yang nilainya diperkirakan/tidak pasti','Angka yang diperoleh dari pembacaan skala alat ukur secara langsung dan pasti benar','Cara penulisan bilangan dalam bentuk a × 10ⁿ yang juga menunjukkan jumlah angka penting dengan jelas'],
+    expl:'Angka penting mencakup angka pasti dan satu angka taksiran. Angka taksiran adalah angka terakhir yang diperkirakan, angka pasti dibaca langsung dari skala, dan notasi ilmiah membantu menunjukkan jumlah AP dengan jelas melalui mantissanya.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Angka nol di antara dua angka bukan nol termasuk angka penting.', answer:true },
-  { id:10, type:'tf', statement:'Angka nol yang terletak di depan angka bukan nol (misalnya pada 0,0025) termasuk angka penting.', answer:false },
+  { id:9, type:'tf', statement:'Angka nol di antara dua angka bukan nol termasuk angka penting.', answer:true,
+    expl:'Pernyataan ini benar. Angka nol yang diapit oleh dua angka bukan nol (misalnya 205) selalu dihitung sebagai angka penting.' },
+  { id:10, type:'tf', statement:'Angka nol yang terletak di depan angka bukan nol (misalnya pada 0,0025) termasuk angka penting.', answer:false,
+    expl:'Pernyataan ini salah. Angka nol di depan angka bukan nol (nol di awal, sebelum angka pasti) hanya berfungsi sebagai penunjuk posisi desimal dan tidak dihitung sebagai angka penting.' },
 ];
 
 const quiz5 = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'Ketelitian (nilai skala terkecil) jangka sorong pada umumnya adalah…',
-    options:['1 mm','0,5 mm','0,1 mm','0,01 mm'], answer:2 },
+    options:['1 mm','0,5 mm','0,1 mm','0,01 mm'], answer:2,
+    expl:'Jangka sorong pada umumnya memiliki ketelitian 0,1 mm karena skala noniusnya membagi 1 mm skala utama menjadi 10 bagian. Mistar berketelitian 1 mm, sedangkan 0,01 mm adalah ketelitian mikrometer sekrup.' },
   { id:2, type:'mc', prompt:'Bagian jangka sorong yang digunakan untuk mengukur diameter DALAM suatu benda (misal cincin) adalah…',
-    options:['Rahang luar (atas)','Rahang dalam (bawah)','Tangkai ukur kedalaman','Baut pengunci'], answer:1 },
+    options:['Rahang luar (atas)','Rahang dalam (bawah)','Tangkai ukur kedalaman','Baut pengunci'], answer:1,
+    expl:'Rahang dalam (bagian bawah/rahang kecil) digunakan untuk mengukur diameter dalam suatu lubang atau cincin. Rahang luar untuk diameter luar, dan tangkai ukur kedalaman untuk mengukur kedalaman lubang.' },
 
   // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
   { id:3, type:'checkbox', prompt:'Centang semua fungsi pengukuran yang DAPAT dilakukan oleh jangka sorong.',
-    options:['Mengukur diameter luar benda','Mengukur diameter dalam suatu lubang','Mengukur kedalaman suatu lubang','Mengukur massa benda','Mengukur suhu benda','Mengukur panjang benda kecil secara teliti'], answer:[0,1,2,5] },
+    options:['Mengukur diameter luar benda','Mengukur diameter dalam suatu lubang','Mengukur kedalaman suatu lubang','Mengukur massa benda','Mengukur suhu benda','Mengukur panjang benda kecil secara teliti'], answer:[0,1,2,5],
+    expl:'Jangka sorong dapat mengukur diameter luar, diameter dalam, kedalaman lubang, dan panjang benda kecil secara teliti. Jangka sorong tidak dapat mengukur massa (perlu neraca) atau suhu (perlu termometer).' },
   { id:4, type:'checkbox', prompt:'Centang semua PERNYATAAN berikut yang BENAR tentang jangka sorong.',
-    options:['Jangka sorong memiliki dua skala, yaitu skala utama dan skala nonius','Jangka sorong lebih teliti daripada mistar','Skala nonius dibaca dari garis yang paling berimpit dengan skala utama','Ketelitian jangka sorong sama dengan ketelitian mikrometer sekrup','Skala utama dibaca dari angka tepat sebelum garis nol nonius','Jangka sorong tidak dapat mengukur kedalaman lubang'], answer:[0,1,2,4] },
+    options:['Jangka sorong memiliki dua skala, yaitu skala utama dan skala nonius','Jangka sorong lebih teliti daripada mistar','Skala nonius dibaca dari garis yang paling berimpit dengan skala utama','Ketelitian jangka sorong sama dengan ketelitian mikrometer sekrup','Skala utama dibaca dari angka tepat sebelum garis nol nonius','Jangka sorong tidak dapat mengukur kedalaman lubang'], answer:[0,1,2,4],
+    expl:'Pernyataan yang benar: jangka sorong memiliki skala utama dan nonius, lebih teliti dari mistar, skala nonius dibaca dari garis paling berimpit, dan skala utama dibaca dari angka tepat sebelum garis nol nonius. Ketelitiannya (0,1 mm) berbeda dari mikrometer sekrup (0,01 mm), dan jangka sorong justru DAPAT mengukur kedalaman lubang.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Hitunglah hasil pengukuran jangka sorong berikut (ketelitian 0,1 mm). Gunakan rumus: hasil = skala utama + (skala nonius × 0,1 mm).',
@@ -2584,41 +2777,51 @@ const quiz5 = [
       {label:'Skala utama 12 mm, garis nonius berimpit ke-5 → hasil = ... mm', accepted:['12,5','12.5']},
       {label:'Skala utama 30 mm, garis nonius berimpit ke-2 → hasil = ... mm', accepted:['30,2','30.2']},
       {label:'Skala utama 45 mm, garis nonius berimpit ke-8 → hasil = ... mm', accepted:['45,8','45.8']}
-    ]},
+    ],
+    expl:'Gunakan rumus hasil = skala utama + (skala nonius × 0,1 mm): 12 + (5×0,1) = 12,5 mm; 30 + (2×0,1) = 30,2 mm; 45 + (8×0,1) = 45,8 mm.' },
   { id:6, type:'short', prompt:'Lengkapi pernyataan berikut mengenai jangka sorong.',
     blanks:[
       {label:'Bagian yang memuat skala nonius disebut rahang ...', accepted:['geser','rahang geser']},
       {label:'Satuan ketelitian jangka sorong adalah ... mm', accepted:['0,1','0.1']},
       {label:'Bagian untuk mengukur kedalaman lubang disebut tangkai ukur ...', accepted:['kedalaman','depth probe']}
-    ]},
+    ],
+    expl:'Rahang geser adalah bagian yang bisa digeser dan memuat skala nonius. Ketelitian jangka sorong adalah 0,1 mm. Tangkai ukur kedalaman berfungsi mengukur kedalaman suatu lubang.' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan bagian jangka sorong berikut dengan fungsinya.',
     left:['Rahang luar (atas)','Rahang dalam (bawah)','Tangkai ukur kedalaman','Skala nonius'],
     rightPool:['Mengukur diameter/panjang luar benda','Mengukur diameter dalam suatu lubang','Mengukur kedalaman suatu lubang','Membantu membaca angka desimal hasil pengukuran'],
-    answer:['Mengukur diameter/panjang luar benda','Mengukur diameter dalam suatu lubang','Mengukur kedalaman suatu lubang','Membantu membaca angka desimal hasil pengukuran'] },
+    answer:['Mengukur diameter/panjang luar benda','Mengukur diameter dalam suatu lubang','Mengukur kedalaman suatu lubang','Membantu membaca angka desimal hasil pengukuran'],
+    expl:'Setiap bagian jangka sorong punya fungsi khusus: rahang luar untuk ukuran luar, rahang dalam untuk ukuran dalam, tangkai untuk kedalaman, dan skala nonius untuk membaca angka desimal hasil ukur.' },
   { id:8, type:'match', prompt:'Jodohkan alat ukur berikut dengan ketelitiannya.',
     left:['Mistar','Jangka sorong','Mikrometer sekrup','Neraca'],
     rightPool:['1 mm','0,1 mm','0,01 mm','Bervariasi'],
-    answer:['1 mm','0,1 mm','0,01 mm','Bervariasi'] },
+    answer:['1 mm','0,1 mm','0,01 mm','Bervariasi'],
+    expl:'Mistar berketelitian 1 mm, jangka sorong 0,1 mm, mikrometer sekrup 0,01 mm (paling teliti di antara ketiganya), sedangkan ketelitian neraca bervariasi tergantung jenisnya.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Jangka sorong memiliki ketelitian yang lebih tinggi daripada mistar biasa.', answer:true },
-  { id:10, type:'tf', statement:'Skala utama pada jangka sorong dibaca dari garis skala nonius yang berimpit dengan garis skala utama.', answer:false },
+  { id:9, type:'tf', statement:'Jangka sorong memiliki ketelitian yang lebih tinggi daripada mistar biasa.', answer:true,
+    expl:'Pernyataan ini benar. Jangka sorong (0,1 mm) memiliki ketelitian sepuluh kali lebih tinggi dibanding mistar biasa (1 mm) karena adanya skala nonius.' },
+  { id:10, type:'tf', statement:'Skala utama pada jangka sorong dibaca dari garis skala nonius yang berimpit dengan garis skala utama.', answer:false,
+    expl:'Pernyataan ini salah. Yang dibaca dari garis nonius yang berimpit dengan skala utama adalah skala nonius (angka desimal), sedangkan skala utama dibaca dari angka tepat sebelum garis nol nonius.' },
 ];
 
 const quiz6 = [
   // ---- PILIHAN GANDA (2) ----
   { id:1, type:'mc', prompt:'Ketelitian (nilai skala terkecil) mikrometer sekrup pada umumnya adalah…',
-    options:['1 mm','0,1 mm','0,01 mm','0,001 mm'], answer:2 },
+    options:['1 mm','0,1 mm','0,01 mm','0,001 mm'], answer:2,
+    expl:'Mikrometer sekrup memiliki ketelitian 0,01 mm, sepuluh kali lebih teliti dibanding jangka sorong (0,1 mm), karena skala putarnya membagi jarak antar-garis skala utama dengan sangat halus.' },
   { id:2, type:'mc', prompt:'Bagian mikrometer sekrup yang berfungsi memutar thimble dengan tekanan konsisten agar benda tidak rusak adalah…',
-    options:['Poros tetap (anvil)','Laras (sleeve)','Roda bergerigi (ratchet)','Pengunci (lock)'], answer:2 },
+    options:['Poros tetap (anvil)','Laras (sleeve)','Roda bergerigi (ratchet)','Pengunci (lock)'], answer:2,
+    expl:'Ratchet (roda bergerigi) berfungsi memutar thimble dengan tekanan yang konsisten dan otomatis berhenti (berbunyi "klik") saat benda sudah terjepit cukup kuat, sehingga benda tidak rusak atau hasil ukur tidak berubah-ubah.' },
 
   // ---- CHECKBOX / PILIHAN GANDA KOMPLEKS (2) ----
   { id:3, type:'checkbox', prompt:'Centang semua benda berikut yang PALING TEPAT diukur menggunakan mikrometer sekrup.',
-    options:['Tebal selembar kertas','Diameter kawat tipis','Panjang meja belajar','Diameter kabel kecil','Panjang lapangan sepak bola','Tinggi badan siswa'], answer:[0,1,3] },
+    options:['Tebal selembar kertas','Diameter kawat tipis','Panjang meja belajar','Diameter kabel kecil','Panjang lapangan sepak bola','Tinggi badan siswa'], answer:[0,1,3],
+    expl:'Mikrometer sekrup paling tepat untuk benda-benda sangat tipis/kecil seperti tebal kertas, diameter kawat tipis, dan diameter kabel kecil. Benda besar seperti meja, lapangan, atau tinggi badan lebih tepat diukur dengan mistar atau meteran.' },
   { id:4, type:'checkbox', prompt:'Centang semua PERNYATAAN berikut yang BENAR tentang mikrometer sekrup.',
-    options:['Mikrometer sekrup memiliki ketelitian 0,01 mm','Skala putar terletak pada bagian thimble','Mikrometer sekrup kurang teliti dibanding jangka sorong','Skala utama terletak pada bagian laras (sleeve)','Ratchet digunakan agar benda tidak terjepit berlebihan','Mikrometer sekrup hanya bisa mengukur benda yang sangat besar'], answer:[0,1,3,4] },
+    options:['Mikrometer sekrup memiliki ketelitian 0,01 mm','Skala putar terletak pada bagian thimble','Mikrometer sekrup kurang teliti dibanding jangka sorong','Skala utama terletak pada bagian laras (sleeve)','Ratchet digunakan agar benda tidak terjepit berlebihan','Mikrometer sekrup hanya bisa mengukur benda yang sangat besar'], answer:[0,1,3,4],
+    expl:'Pernyataan yang benar: ketelitiannya 0,01 mm, skala putar ada di thimble, skala utama ada di laras (sleeve), dan ratchet mencegah benda terjepit berlebihan. Mikrometer justru LEBIH teliti dari jangka sorong dan digunakan untuk benda yang sangat KECIL, bukan besar.' },
 
   // ---- URAIAN SINGKAT (2 soal, masing-masing 3 isian) ----
   { id:5, type:'short', prompt:'Hitunglah hasil pengukuran mikrometer sekrup berikut (ketelitian 0,01 mm). Gunakan rumus: hasil = skala utama + (skala putar × 0,01 mm).',
@@ -2626,27 +2829,33 @@ const quiz6 = [
       {label:'Skala utama 4,5 mm, skala putar berimpit ke-20 → hasil = ... mm', accepted:['4,7','4.7']},
       {label:'Skala utama 6,0 mm, skala putar berimpit ke-35 → hasil = ... mm', accepted:['6,35','6.35']},
       {label:'Skala utama 8,5 mm, skala putar berimpit ke-10 → hasil = ... mm', accepted:['8,6','8.6']}
-    ]},
+    ],
+    expl:'Gunakan rumus hasil = skala utama + (skala putar × 0,01 mm): 4,5 + (20×0,01) = 4,7 mm; 6,0 + (35×0,01) = 6,35 mm; 8,5 + (10×0,01) = 8,6 mm.' },
   { id:6, type:'short', prompt:'Lengkapi pernyataan berikut mengenai mikrometer sekrup.',
     blanks:[
       {label:'Bagian yang diputar dan memuat skala putar disebut ...', accepted:['thimble','selubung luar','timbel']},
       {label:'Satuan ketelitian mikrometer sekrup adalah ... mm', accepted:['0,01','0.01']},
       {label:'Bagian landasan diam tempat benda diletakkan disebut ...', accepted:['poros tetap','anvil']}
-    ]},
+    ],
+    expl:'Thimble adalah bagian yang diputar dan memuat skala putar. Ketelitian mikrometer sekrup adalah 0,01 mm. Poros tetap (anvil) adalah landasan diam tempat benda diletakkan saat diukur.' },
 
   // ---- JODOHKAN (2) ----
   { id:7, type:'match', prompt:'Jodohkan bagian mikrometer sekrup berikut dengan fungsinya.',
     left:['Poros tetap (anvil)','Poros geser (spindle)','Roda bergerigi (ratchet)','Skala putar (thimble)'],
     rightPool:['Landasan diam tempat benda diletakkan','Bagian yang bergerak menjepit benda','Memutar thimble dengan tekanan konsisten','Membantu membaca angka desimal hasil pengukuran'],
-    answer:['Landasan diam tempat benda diletakkan','Bagian yang bergerak menjepit benda','Memutar thimble dengan tekanan konsisten','Membantu membaca angka desimal hasil pengukuran'] },
+    answer:['Landasan diam tempat benda diletakkan','Bagian yang bergerak menjepit benda','Memutar thimble dengan tekanan konsisten','Membantu membaca angka desimal hasil pengukuran'],
+    expl:'Setiap bagian punya peran: anvil sebagai landasan diam, spindle bergerak menjepit benda, ratchet memutar dengan tekanan konsisten, dan thimble membantu membaca angka desimal hasil pengukuran.' },
   { id:8, type:'match', prompt:'Jodohkan alat ukur berikut dengan benda yang paling cocok diukur olehnya.',
     left:['Mistar','Jangka sorong','Mikrometer sekrup','Neraca'],
     rightPool:['Panjang buku tulis','Diameter dalam pipa kecil','Diameter kawat tipis','Massa suatu benda'],
-    answer:['Panjang buku tulis','Diameter dalam pipa kecil','Diameter kawat tipis','Massa suatu benda'] },
+    answer:['Panjang buku tulis','Diameter dalam pipa kecil','Diameter kawat tipis','Massa suatu benda'],
+    expl:'Setiap alat ukur cocok untuk kebutuhan berbeda: mistar untuk panjang buku, jangka sorong untuk diameter dalam pipa kecil, mikrometer sekrup untuk diameter kawat tipis, dan neraca untuk mengukur massa benda.' },
 
   // ---- BENAR / SALAH (2) ----
-  { id:9, type:'tf', statement:'Mikrometer sekrup memiliki ketelitian sepuluh kali lebih tinggi daripada jangka sorong.', answer:true },
-  { id:10, type:'tf', statement:'Skala putar pada mikrometer sekrup dibaca dari garis pada laras yang berimpit dengan sumbu thimble.', answer:false },
+  { id:9, type:'tf', statement:'Mikrometer sekrup memiliki ketelitian sepuluh kali lebih tinggi daripada jangka sorong.', answer:true,
+    expl:'Pernyataan ini benar. Mikrometer sekrup memiliki ketelitian 0,01 mm, sedangkan jangka sorong 0,1 mm, sehingga mikrometer sekrup sepuluh kali lebih teliti.' },
+  { id:10, type:'tf', statement:'Skala putar pada mikrometer sekrup dibaca dari garis pada laras yang berimpit dengan sumbu thimble.', answer:false,
+    expl:'Pernyataan ini salah. Skala putar dibaca dari garis pada thimble yang berimpit dengan garis sumbu horizontal pada laras (sleeve), bukan sebaliknya.' },
 ];
 
 /* ============================================================
@@ -2766,6 +2975,7 @@ function createQuizEngine(cfg){
   const quizData = cfg.quiz;
   const studentAnswers = {};
   const doubtfulAnswers = new Set();
+  const checkedResults = {};
   let currentQuestionIndex = 0;
   let timeRemaining = cfg.durationSeconds;
   let timerInterval = null;
@@ -3066,6 +3276,30 @@ function createQuizEngine(cfg){
     }
 
     block.appendChild(body);
+
+    const checkRow = document.createElement('div');
+    checkRow.className = 'qcheck-row';
+    const checkBtn = document.createElement('button');
+    checkBtn.type = 'button';
+    checkBtn.className = 'btn ghost qcheck-btn';
+    checkBtn.textContent = '✅ Cek Jawaban';
+    checkRow.appendChild(checkBtn);
+    block.appendChild(checkRow);
+
+    const feedbackBox = document.createElement('div');
+    feedbackBox.className = 'qfeedback-box';
+    block.appendChild(feedbackBox);
+
+    checkBtn.addEventListener('click', ()=>{
+      if(!isAnswered(q)){
+        alert('Jawab dulu soal ini sebelum mengecek jawaban.');
+        return;
+      }
+      const result = gradeOne(q);
+      checkedResults[q.id] = result;
+      renderFeedback(feedbackBox, q, result, true, currentQuestionIndex === quizData.length - 1);
+    });
+
     container.appendChild(block);
 
     updateProgress();
@@ -3075,11 +3309,7 @@ function createQuizEngine(cfg){
     $(ids.panel).scrollIntoView({behavior:'smooth', block:'start'});
   }
 
-  function gradeQuiz(){
-    let totalScore = 0;
-    const review = [];
-
-    quizData.forEach((q, idx) => {
+  function gradeOne(q){
       let fraction = 0;
       let detail = '';
 
@@ -3132,11 +3362,52 @@ function createQuizEngine(cfg){
         detail = `Jawabanmu: <b>${ans||'(kosong)'}</b> — Kunci: <b>${q.answer}</b>`;
       }
 
+      return { fraction, detail };
+  }
+
+  function gradeQuiz(){
+    let totalScore = 0;
+    const review = [];
+
+    quizData.forEach((q, idx) => {
+      const { fraction, detail } = gradeOne(q);
       totalScore += fraction;
-      review.push({ num: idx+1, type:q.type, fraction, detail, prompt: q.prompt || q.statement || `${q.before} ___ ${q.after}`, topic: q.topic || null });
+      review.push({ num: idx+1, type:q.type, fraction, detail, prompt: q.prompt || q.statement || `${q.before} ___ ${q.after}`, topic: q.topic || null, expl: q.expl || null });
     });
 
     return { totalScore, review };
+  }
+
+  function renderFeedback(box, q, result, celebrate, isLast){
+    const { fraction, detail } = result;
+    const cls = fraction===1 ? 'ok' : (fraction===0 ? 'bad' : 'partial');
+    const label = fraction===1 ? '✅ Benar' : (fraction===0 ? '❌ Belum Tepat' : '⚠️ Sebagian Benar');
+    const motivasi = pickMotivasi(fraction);
+    const pembahasanHtml = q.expl ? `<div class="rpembahasan"><b class="rp-label">💡 Pembahasan</b>${q.expl}</div>` : '';
+    const nextLabel = isLast ? 'Kumpulkan Jawaban ✓' : 'Lanjut ke Soal Berikutnya →';
+    box.className = 'qfeedback-box show ' + cls;
+    box.innerHTML = `
+      <div class="qfeedback-modal">
+        <div class="rtitle">${label} — ${Math.round(fraction*100)}%</div>
+        <div class="rdetail">${detail}</div>
+        <span class="rmotivasi">${motivasi}</span>
+        ${pembahasanHtml}
+        <button type="button" class="qfeedback-close">${nextLabel}</button>
+      </div>`;
+    const closeIt = ()=> box.classList.remove('show');
+    const advance = ()=>{
+      box.classList.remove('show');
+      if(currentQuestionIndex < quizData.length - 1){
+        showQuestion(currentQuestionIndex + 1);
+      } else {
+        $(ids.submitBtn).click();
+      }
+    };
+    box.querySelector('.qfeedback-close').addEventListener('click', advance);
+    box.addEventListener('click', (e)=>{ if(e.target === box) closeIt(); });
+    if(celebrate && fraction === 1){
+      spawnStarBurst();
+    }
   }
 
   function computeTopicStats(review){
@@ -3192,7 +3463,7 @@ function createQuizEngine(cfg){
       if(currentQuestionIndex < quizData.length - 1){
         showQuestion(currentQuestionIndex + 1);
       } else {
-        $(ids.submitBtn).scrollIntoView({behavior:'smooth', block:'center'});
+        $(ids.submitBtn).click();
       }
     });
 
@@ -3218,7 +3489,9 @@ function createQuizEngine(cfg){
         const qObj = quizData[r.num-1];
         const doubtFlag = (qObj && doubtfulAnswers.has(qObj.id)) ? ' <span title="Ditandai ragu-ragu saat mengerjakan">🚩</span>' : '';
         const topicTag = r.topic ? `<span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--brass-dark); background:var(--brass-light); padding:2px 7px; border-radius:2px; margin-left:8px;">${r.topic}</span>` : '';
-        div.innerHTML = `<div class="rtitle">Soal ${r.num} — ${Math.round(r.fraction*100)}%${topicTag}${doubtFlag}</div><div>${r.prompt}</div><div style="margin-top:6px; color:var(--ink-soft);">${r.detail}</div>`;
+        const motivasi = pickMotivasi(r.fraction);
+        const pembahasanHtml = r.expl ? `<div class="rpembahasan"><b class="rp-label">💡 Pembahasan</b>${r.expl}</div>` : '';
+        div.innerHTML = `<div class="rtitle">Soal ${r.num} — ${Math.round(r.fraction*100)}%${topicTag}${doubtFlag}</div><div>${r.prompt}</div><div style="margin-top:6px; color:var(--ink-soft);">${r.detail}</div><span class="rmotivasi">${motivasi}</span>${pembahasanHtml}`;
         reviewList.appendChild(div);
       });
 
@@ -3227,8 +3500,30 @@ function createQuizEngine(cfg){
 
       $(ids.resultBox).style.display = 'block';
       $(ids.resultBox).scrollIntoView({behavior:'smooth'});
+      spawnStarBurst();
       lastResult = { totalScore, review, pct, topicStats };
     });
+
+    if(ids.retryBtn && $(ids.retryBtn)){
+      $(ids.retryBtn).addEventListener('click', ()=>{
+        Object.keys(studentAnswers).forEach(k => delete studentAnswers[k]);
+        doubtfulAnswers.clear();
+        Object.keys(checkedResults).forEach(k => delete checkedResults[k]);
+        currentQuestionIndex = 0;
+        timeRemaining = cfg.durationSeconds;
+        quizSubmitted = false;
+        lastResult = null;
+        clearInterval(timerInterval);
+        $(ids.resultBox).style.display = 'none';
+        const box = $(ids.timerBox);
+        box.classList.remove('stopped','warning');
+        box.querySelector('.timer-label').textContent = 'Sisa Waktu Pengerjaan';
+        buildQnGrid();
+        showQuestion(0);
+        startTimer();
+        $(ids.container).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    }
 
     $(ids.sendSheetBtn).addEventListener('click', ()=>{
       if(!lastResult) return;
@@ -3387,6 +3682,7 @@ const latihanEngine = createQuizEngine({
     reviewList: 'reviewList',
     sendSheetBtn: 'sendSheetBtn',
     downloadBtn: 'downloadBtn',
+    retryBtn: 'retryBtn',
     sendStatus: 'sendStatus'
   }
 });
@@ -3414,6 +3710,7 @@ const latihan2Engine = createQuizEngine({
     reviewList: 'reviewList2',
     sendSheetBtn: 'sendSheetBtn2',
     downloadBtn: 'downloadBtn2',
+    retryBtn: 'retryBtn2',
     sendStatus: 'sendStatus2'
   }
 });
@@ -3441,6 +3738,7 @@ const latihan3Engine = createQuizEngine({
     reviewList: 'reviewList3',
     sendSheetBtn: 'sendSheetBtn3',
     downloadBtn: 'downloadBtn3',
+    retryBtn: 'retryBtn3',
     sendStatus: 'sendStatus3'
   }
 });
@@ -3468,32 +3766,24 @@ const latihan4Engine = createQuizEngine({
     reviewList: 'reviewList4',
     sendSheetBtn: 'sendSheetBtn4',
     downloadBtn: 'downloadBtn4',
+    retryBtn: 'retryBtn4',
     sendStatus: 'sendStatus4'
   }
 });
 
 bindQuizStart({
-  nameInput: 'latihanName',
-  classInput: 'latihanClass',
-  errorBox: 'latihanLoginError',
   startBtn: 'startLatihanBtn',
   startCard: 'quizStartCard',
   quizArea: 'quizArea'
 }, latihanEngine);
 
 bindQuizStart({
-  nameInput: 'latihanName2',
-  classInput: 'latihanClass2',
-  errorBox: 'latihanLoginError2',
   startBtn: 'startLatihanBtn2',
   startCard: 'quizStartCard2',
   quizArea: 'quizArea2'
 }, latihan2Engine);
 
 bindQuizStart({
-  nameInput: 'latihanName3',
-  classInput: 'latihanClass3',
-  errorBox: 'latihanLoginError3',
   startBtn: 'startLatihanBtn3',
   startCard: 'quizStartCard3',
   quizArea: 'quizArea3'
@@ -3522,6 +3812,7 @@ const latihan5Engine = createQuizEngine({
     reviewList: 'reviewList5',
     sendSheetBtn: 'sendSheetBtn5',
     downloadBtn: 'downloadBtn5',
+    retryBtn: 'retryBtn5',
     sendStatus: 'sendStatus5'
   }
 });
@@ -3549,6 +3840,7 @@ const latihan6Engine = createQuizEngine({
     reviewList: 'reviewList6',
     sendSheetBtn: 'sendSheetBtn6',
     downloadBtn: 'downloadBtn6',
+    retryBtn: 'retryBtn6',
     sendStatus: 'sendStatus6'
   }
 });
@@ -3577,41 +3869,30 @@ const latihan7Engine = createQuizEngine({
     topicStatsBox: 'topicStatsBox7',
     sendSheetBtn: 'sendSheetBtn7',
     downloadBtn: 'downloadBtn7',
+    retryBtn: 'retryBtn7',
     sendStatus: 'sendStatus7'
   }
 });
 
 bindQuizStart({
-  nameInput: 'latihanName4',
-  classInput: 'latihanClass4',
-  errorBox: 'latihanLoginError4',
   startBtn: 'startLatihanBtn4',
   startCard: 'quizStartCard4',
   quizArea: 'quizArea4'
 }, latihan4Engine);
 
 bindQuizStart({
-  nameInput: 'latihanName5',
-  classInput: 'latihanClass5',
-  errorBox: 'latihanLoginError5',
   startBtn: 'startLatihanBtn5',
   startCard: 'quizStartCard5',
   quizArea: 'quizArea5'
 }, latihan5Engine);
 
 bindQuizStart({
-  nameInput: 'latihanName6',
-  classInput: 'latihanClass6',
-  errorBox: 'latihanLoginError6',
   startBtn: 'startLatihanBtn6',
   startCard: 'quizStartCard6',
   quizArea: 'quizArea6'
 }, latihan6Engine);
 
 bindQuizStart({
-  nameInput: 'latihanName7',
-  classInput: 'latihanClass7',
-  errorBox: 'latihanLoginError7',
   startBtn: 'startLatihanBtn7',
   startCard: 'quizStartCard7',
   quizArea: 'quizArea7'
