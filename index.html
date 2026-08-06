@@ -505,6 +505,7 @@
     font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.03em; color:var(--ink-soft);
   }
   .converter-check-row input[type="checkbox"]{width:16px; height:16px; accent-color:var(--brass); cursor:pointer;}
+  .demo-readout.is-blurred{filter:blur(7px); user-select:none; transition:filter .2s ease;}
 
   .step-example{border-left:3px solid var(--brass); background:#FAFAF6; padding:14px 18px; margin:14px 0;}
   .step-example .step-q{font-weight:600; margin-bottom:8px;}
@@ -708,7 +709,10 @@
       <div class="demo-ruler" id="rulerDemo">
         <div class="demo-pointer" id="rulerPointer" style="left:0%;"></div>
       </div>
-      <div class="demo-readout" id="rulerReadout">Posisi: 0,0 cm</div>
+      <div class="converter-check-row">
+        <label for="rulerCheckbox"><input type="checkbox" id="rulerCheckbox"> Tampilkan Hasil</label>
+      </div>
+      <div class="demo-readout is-blurred" id="rulerReadout">Posisi: 0,0 cm</div>
     </div>
 
     <div class="materi-next">
@@ -991,7 +995,10 @@
             <input type="number" id="notasiInput" value="320000" step="any">
           </div>
         </div>
-        <div class="converter-result" id="notasiResult">3,2 × 10⁵</div>
+        <div class="converter-check-row">
+          <label for="notasiCheckbox"><input type="checkbox" id="notasiCheckbox"> Tampilkan Jawaban</label>
+        </div>
+        <div class="converter-result is-blurred" id="notasiResult">3,2 × 10⁵</div>
       </div>
     </div>
 
@@ -1143,7 +1150,10 @@
             <input type="text" id="apInput" value="12,50">
           </div>
         </div>
-        <div class="converter-result" id="apResult">4 angka penting</div>
+        <div class="converter-check-row">
+          <label for="apCheckbox"><input type="checkbox" id="apCheckbox"> Tampilkan Jawaban</label>
+        </div>
+        <div class="converter-result is-blurred" id="apResult">4 angka penting</div>
       </div>
     </div>
 
@@ -1422,7 +1432,10 @@
             <input type="text" id="jsNonius" value="4">
           </div>
         </div>
-        <div class="converter-result" id="jsResult">23,4 mm</div>
+        <div class="converter-check-row">
+          <label for="jsCheckbox"><input type="checkbox" id="jsCheckbox"> Tampilkan Jawaban</label>
+        </div>
+        <div class="converter-result is-blurred" id="jsResult">23,4 mm</div>
       </div>
     </div>
 
@@ -1561,7 +1574,10 @@
             <input type="text" id="mkPutar" value="28">
           </div>
         </div>
-        <div class="converter-result" id="mkResult">5,78 mm</div>
+        <div class="converter-check-row">
+          <label for="mkCheckbox"><input type="checkbox" id="mkCheckbox"> Tampilkan Jawaban</label>
+        </div>
+        <div class="converter-result is-blurred" id="mkResult">5,78 mm</div>
       </div>
     </div>
 
@@ -2159,6 +2175,22 @@ document.addEventListener('click', (e)=>{
 /* ============================================================
    HEADER RULER + DEMO RULER (visual signature)
 ============================================================ */
+/* ============================================================
+   HELPER — BLUR/CENTANG "TAMPILKAN JAWABAN" (dipakai semua Coba Sendiri)
+============================================================ */
+function bindResultCheckbox(checkboxId, resultId){
+  const checkbox = document.getElementById(checkboxId);
+  const resultEl = document.getElementById(resultId);
+  if(!checkbox || !resultEl) return function(){};
+  checkbox.addEventListener('change', ()=>{
+    resultEl.classList.toggle('is-blurred', !checkbox.checked);
+  });
+  return function lockResult(){
+    checkbox.checked = false;
+    resultEl.classList.add('is-blurred');
+  };
+}
+
 function buildRuler(){
   const ruler = document.getElementById('headerRuler');
   const majors = 12;
@@ -2178,6 +2210,7 @@ function buildRulerDemo(){
   const ruler = document.getElementById('rulerDemo');
   const pointer = document.getElementById('rulerPointer');
   const readout = document.getElementById('rulerReadout');
+  bindResultCheckbox('rulerCheckbox', 'rulerReadout');
   const maxCm = 15;
   for(let mm=0; mm<=maxCm*10; mm++){
     const pct = (mm/(maxCm*10))*100;
@@ -2327,8 +2360,10 @@ function updateNotasiResult(){
 }
 function initNotasiConverter(){
   const input = document.getElementById('notasiInput');
-  input.addEventListener('input', updateNotasiResult);
+  const lockResult = bindResultCheckbox('notasiCheckbox', 'notasiResult');
+  input.addEventListener('input', ()=>{ updateNotasiResult(); lockResult(); });
   updateNotasiResult();
+  lockResult();
 }
 
 /* ============================================================
@@ -2382,8 +2417,10 @@ function updateAPResult(){
 
 function initAPConverter(){
   const input = document.getElementById('apInput');
-  input.addEventListener('input', updateAPResult);
+  const lockResult = bindResultCheckbox('apCheckbox', 'apResult');
+  input.addEventListener('input', ()=>{ updateAPResult(); lockResult(); });
   updateAPResult();
+  lockResult();
 }
 
 /* ============================================================
@@ -2413,9 +2450,11 @@ function updateJSResult(){
 function initJSConverter(){
   const utamaEl = document.getElementById('jsUtama');
   const noniusEl = document.getElementById('jsNonius');
-  utamaEl.addEventListener('input', updateJSResult);
-  noniusEl.addEventListener('input', updateJSResult);
+  const lockResult = bindResultCheckbox('jsCheckbox', 'jsResult');
+  utamaEl.addEventListener('input', ()=>{ updateJSResult(); lockResult(); });
+  noniusEl.addEventListener('input', ()=>{ updateJSResult(); lockResult(); });
   updateJSResult();
+  lockResult();
 }
 
 /* ============================================================
@@ -2437,9 +2476,11 @@ function updateMKResult(){
 function initMKConverter(){
   const utamaEl = document.getElementById('mkUtama');
   const putarEl = document.getElementById('mkPutar');
-  utamaEl.addEventListener('input', updateMKResult);
-  putarEl.addEventListener('input', updateMKResult);
+  const lockResult = bindResultCheckbox('mkCheckbox', 'mkResult');
+  utamaEl.addEventListener('input', ()=>{ updateMKResult(); lockResult(); });
+  putarEl.addEventListener('input', ()=>{ updateMKResult(); lockResult(); });
   updateMKResult();
+  lockResult();
 }
 
 /* ============================================================
