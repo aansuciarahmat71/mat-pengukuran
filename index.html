@@ -497,6 +497,14 @@
     background:#fff; border:1.5px solid var(--paper-line); padding:14px 16px;
   }
   .converter-result .small{font-size:11.5px; font-weight:500; color:var(--ink-soft); display:block; margin-top:4px;}
+  .converter-result{position:relative;}
+  .converter-result.is-blurred{filter:blur(7px); user-select:none; transition:filter .2s ease;}
+  .converter-check-row{margin:0 0 14px; display:flex; align-items:center; gap:8px;}
+  .converter-check-row label{
+    display:flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.03em; color:var(--ink-soft);
+  }
+  .converter-check-row input[type="checkbox"]{width:16px; height:16px; accent-color:var(--brass); cursor:pointer;}
 
   .step-example{border-left:3px solid var(--brass); background:#FAFAF6; padding:14px 18px; margin:14px 0;}
   .step-example .step-q{font-weight:600; margin-bottom:8px;}
@@ -893,7 +901,10 @@
           <select id="convTo"></select>
         </div>
       </div>
-      <div class="converter-result" id="convResult">1 m = 1 m</div>
+      <div class="converter-check-row">
+        <label for="convCheckbox"><input type="checkbox" id="convCheckbox"> Tampilkan Jawaban</label>
+      </div>
+      <div class="converter-result is-blurred" id="convResult">1 m = 1 m</div>
     </div>
 
     <div class="materi-next">
@@ -2235,6 +2246,13 @@ function populateConverterUnitSelects(){
   toSel.selectedIndex = Math.min(3, units.length - 1);
 }
 
+function lockConverterResult(){
+  const checkbox = document.getElementById('convCheckbox');
+  const resultEl = document.getElementById('convResult');
+  checkbox.checked = false;
+  resultEl.classList.add('is-blurred');
+}
+
 function updateConverterResult(){
   const category = document.getElementById('convCategory').value;
   const value = parseFloat(document.getElementById('convValue').value);
@@ -2259,19 +2277,26 @@ function initConverter(){
   const fromSel = document.getElementById('convFrom');
   const toSel = document.getElementById('convTo');
   const swapBtn = document.getElementById('convSwapBtn');
+  const checkbox = document.getElementById('convCheckbox');
+  const resultEl = document.getElementById('convResult');
 
   populateConverterUnitSelects();
   updateConverterResult();
+  lockConverterResult();
 
-  categorySel.addEventListener('change', ()=>{ populateConverterUnitSelects(); updateConverterResult(); });
-  valueInput.addEventListener('input', updateConverterResult);
-  fromSel.addEventListener('change', updateConverterResult);
-  toSel.addEventListener('change', updateConverterResult);
+  categorySel.addEventListener('change', ()=>{ populateConverterUnitSelects(); updateConverterResult(); lockConverterResult(); });
+  valueInput.addEventListener('input', ()=>{ updateConverterResult(); lockConverterResult(); });
+  fromSel.addEventListener('change', ()=>{ updateConverterResult(); lockConverterResult(); });
+  toSel.addEventListener('change', ()=>{ updateConverterResult(); lockConverterResult(); });
   swapBtn.addEventListener('click', ()=>{
     const tmp = fromSel.value;
     fromSel.value = toSel.value;
     toSel.value = tmp;
     updateConverterResult();
+    lockConverterResult();
+  });
+  checkbox.addEventListener('change', ()=>{
+    resultEl.classList.toggle('is-blurred', !checkbox.checked);
   });
 }
 
