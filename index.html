@@ -222,6 +222,29 @@
     .slide-bar .slide-progress{order:3; flex-basis:100%;}
   }
 
+  /* ---------- REFLEKSI PEMAHAMAN (BINTANG) ---------- */
+  .materi-reflection{margin:18px 0 8px;}
+  .reflection-box{
+    background:var(--brass-light); border:1.5px solid var(--brass); border-left:5px solid var(--brass-dark);
+    padding:24px 26px; text-align:center;
+  }
+  .reflection-title{font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .reflection-desc{font-size:14px; color:var(--ink-soft); margin:0 0 16px;}
+  .star-picker{display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:12px;}
+  .star-btn{
+    background:none; border:none; cursor:pointer; font-size:38px; line-height:1; padding:2px 4px;
+    color:#D8CBB0; transition:transform .12s ease, color .12s ease;
+  }
+  .star-btn:hover{transform:scale(1.15);}
+  .star-btn.is-filled{color:var(--brass-dark);}
+  .star-picker.is-hover .star-btn.is-preview{color:var(--brass);}
+  .reflection-feedback{font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.03em; color:var(--brass-dark); min-height:16px; font-weight:600;}
+
+  /* ---------- BINTANG DI MENU MATERI (NAV DROPDOWN) ---------- */
+  .nav-dropdown .tab-btn{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .tab-stars{font-size:12px; letter-spacing:1px; color:#5C6C7A; flex:none; white-space:nowrap;}
+  .tab-stars .filled{color:var(--brass);}
+
   /* ---------- MATERI-BOTTOM: LATIHAN / KUIS LINKS ---------- */
   .materi-next{margin-top:34px; padding-top:26px; border-top:2px solid var(--ink);}
   .materi-next .label{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:14px;}
@@ -637,12 +660,12 @@
       <button type="button" class="nav-util-btn nav-close-btn" id="closeAppBtn" title="Keluar Aplikasi" aria-label="Keluar Aplikasi">✕</button>
     </div>
     <div class="nav-dropdown" id="navDropdown">
-      <button class="tab-btn active" data-tab="materi"><span class="num">01</span>Besaran dan Satuan</button>
-      <button class="tab-btn" data-tab="konversi"><span class="num">02</span>Konversi Satuan</button>
-      <button class="tab-btn" data-tab="notasi"><span class="num">03</span>Notasi Ilmiah</button>
-      <button class="tab-btn" data-tab="angkapenting"><span class="num">04</span>Angka Penting</button>
-      <button class="tab-btn" data-tab="jangkasorong"><span class="num">05</span>Jangka Sorong</button>
-      <button class="tab-btn" data-tab="mikrometer"><span class="num">06</span>Mikrometer Sekrup</button>
+      <button class="tab-btn active" data-tab="materi"><span><span class="num">01</span>Besaran dan Satuan</span><span class="tab-stars" id="tabStars-materi"></span></button>
+      <button class="tab-btn" data-tab="konversi"><span><span class="num">02</span>Konversi Satuan</span><span class="tab-stars" id="tabStars-konversi"></span></button>
+      <button class="tab-btn" data-tab="notasi"><span><span class="num">03</span>Notasi Ilmiah</span><span class="tab-stars" id="tabStars-notasi"></span></button>
+      <button class="tab-btn" data-tab="angkapenting"><span><span class="num">04</span>Angka Penting</span><span class="tab-stars" id="tabStars-angkapenting"></span></button>
+      <button class="tab-btn" data-tab="jangkasorong"><span><span class="num">05</span>Jangka Sorong</span><span class="tab-stars" id="tabStars-jangkasorong"></span></button>
+      <button class="tab-btn" data-tab="mikrometer"><span><span class="num">06</span>Mikrometer Sekrup</span><span class="tab-stars" id="tabStars-mikrometer"></span></button>
       <button class="tab-btn" data-tab="evaluasi"><span class="num">07</span>Evaluasi</button>
       <button class="tab-btn" data-tab="dev"><span class="num">08</span>Info Pengembang</button>
     </div>
@@ -1994,7 +2017,7 @@ function initMateriSlides(){
     const groups = [];
     let current = [];
     nodesAfterH2.forEach(el=>{
-      const startsNewSlide = el.tagName === 'H3' || el.classList.contains('materi-next');
+      const startsNewSlide = el.tagName === 'H3' || el.classList.contains('materi-next') || el.classList.contains('materi-reflection');
       if(startsNewSlide && current.length){
         groups.push(current);
         current = [];
@@ -3969,7 +3992,114 @@ initNotasiConverter();
 initAPConverter();
 initJSConverter();
 initMKConverter();
+
+/* ============================================================
+   REFLEKSI PEMAHAMAN (BINTANG 1-5) PER MATERI
+   Menyisipkan satu slide refleksi di akhir tiap materi (sebelum
+   kartu "Lanjutkan ke.../Latihan"), lalu menampilkan hasilnya
+   sebagai bintang di sebelah nama materi pada Menu Materi.
+============================================================ */
+const REFLECTION_MATERI_IDS = ['materi','konversi','notasi','angkapenting','jangkasorong','mikrometer'];
+const materiReflections = {}; // { panelId: 1..5 }
+
+const REFLECTION_MESSAGES = {
+  1: '😕 Belum paham — coba baca ulang materinya, ya.',
+  2: '🤔 Masih agak bingung — jangan ragu ulangi bagian yang sulit.',
+  3: '🙂 Cukup paham — lanjutkan sambil sesekali cek lagi.',
+  4: '😊 Paham dengan baik — mantap!',
+  5: '🤩 Sangat paham — kamu siap lanjut ke latihan!'
+};
+
+function insertReflectionSlides(){
+  REFLECTION_MATERI_IDS.forEach(id=>{
+    const panel = document.getElementById('panel-' + id);
+    if(!panel) return;
+    const nextBlock = panel.querySelector(':scope > .materi-next');
+    if(!nextBlock) return;
+    const meta = tabMeta[id] || { label: 'materi ini' };
+
+    const wrap = document.createElement('div');
+    wrap.className = 'materi-reflection';
+    wrap.innerHTML = `
+      <div class="reflection-box">
+        <div class="reflection-title">🌟 Refleksi Pemahaman</div>
+        <p class="reflection-desc">Seberapa paham kamu dengan materi <strong>${meta.label}</strong> setelah mempelajarinya? Klik bintangnya.</p>
+        <div class="star-picker" data-materi="${id}">
+          <button type="button" class="star-btn" data-value="1" aria-label="1 bintang">★</button>
+          <button type="button" class="star-btn" data-value="2" aria-label="2 bintang">★</button>
+          <button type="button" class="star-btn" data-value="3" aria-label="3 bintang">★</button>
+          <button type="button" class="star-btn" data-value="4" aria-label="4 bintang">★</button>
+          <button type="button" class="star-btn" data-value="5" aria-label="5 bintang">★</button>
+        </div>
+        <div class="reflection-feedback" id="reflectionFeedback-${id}"></div>
+      </div>
+    `;
+    panel.insertBefore(wrap, nextBlock);
+  });
+}
+
+function renderStarPicker(materiId){
+  const picker = document.querySelector('.star-picker[data-materi="' + materiId + '"]');
+  if(!picker) return;
+  const val = materiReflections[materiId] || 0;
+  picker.querySelectorAll('.star-btn').forEach(btn=>{
+    btn.classList.toggle('is-filled', parseInt(btn.dataset.value, 10) <= val);
+  });
+  const feedback = document.getElementById('reflectionFeedback-' + materiId);
+  if(feedback) feedback.textContent = val ? REFLECTION_MESSAGES[val] : '';
+}
+
+function renderTabStars(materiId){
+  const el = document.getElementById('tabStars-' + materiId);
+  if(!el) return;
+  const val = materiReflections[materiId] || 0;
+  if(!val){ el.innerHTML = ''; return; }
+  let html = '';
+  for(let i = 1; i <= 5; i++){
+    html += '<span class="' + (i <= val ? 'filled' : '') + '">★</span>';
+  }
+  el.innerHTML = html;
+}
+
+function setMateriReflection(materiId, value){
+  materiReflections[materiId] = value;
+  renderStarPicker(materiId);
+  renderTabStars(materiId);
+}
+
+document.addEventListener('click', (e)=>{
+  const starBtn = e.target.closest('.star-btn');
+  if(!starBtn) return;
+  const picker = starBtn.closest('.star-picker');
+  if(!picker) return;
+  const materiId = picker.dataset.materi;
+  const value = parseInt(starBtn.dataset.value, 10);
+  setMateriReflection(materiId, value);
+});
+
+document.addEventListener('mouseover', (e)=>{
+  const starBtn = e.target.closest('.star-btn');
+  if(!starBtn) return;
+  const picker = starBtn.closest('.star-picker');
+  if(!picker) return;
+  const hoverVal = parseInt(starBtn.dataset.value, 10);
+  picker.querySelectorAll('.star-btn').forEach(btn=>{
+    btn.classList.toggle('is-preview', parseInt(btn.dataset.value, 10) <= hoverVal);
+  });
+  picker.classList.add('is-hover');
+});
+document.addEventListener('mouseout', (e)=>{
+  const starBtn = e.target.closest('.star-btn');
+  if(!starBtn) return;
+  const picker = starBtn.closest('.star-picker');
+  if(!picker) return;
+  picker.classList.remove('is-hover');
+  picker.querySelectorAll('.star-btn').forEach(btn=> btn.classList.remove('is-preview'));
+});
+
+insertReflectionSlides();
 initMateriSlides();
+REFLECTION_MATERI_IDS.forEach(id=>{ renderStarPicker(id); renderTabStars(id); });
 
 </script>
 <script>
