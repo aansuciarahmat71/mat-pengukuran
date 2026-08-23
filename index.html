@@ -2200,21 +2200,6 @@ function initMateriSlides(){
       });
     });
 
-    // Navigasi swipe/sapuan untuk layar sentuh.
-    let touchStartX = 0, touchStartY = 0;
-    viewport.addEventListener('touchstart', (e)=>{
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, { passive:true });
-    viewport.addEventListener('touchend', (e)=>{
-      const dx = e.changedTouches[0].screenX - touchStartX;
-      const dy = e.changedTouches[0].screenY - touchStartY;
-      const SWIPE_THRESHOLD = 40;
-      if(Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
-      const state = materiSlideState[panel.id];
-      goToMateriSlide(panel.id, state.index + (dx < 0 ? 1 : -1));
-    }, { passive:true });
-
     renderMateriSlide(panel.id);
   });
 }
