@@ -226,6 +226,22 @@
   .slide-dot:hover{background:var(--brass-light);}
   .slide-dot.current{background:var(--brass); width:38px;}
 
+  /* Panah kiri/kanan sejajar dengan penanda no slide (khusus layar sentuh/HP,
+     karena panah samping .slide-arrow disembunyikan di perangkat tanpa mouse). */
+  .slide-bar{flex-direction:row; justify-content:center; gap:12px;}
+  .slide-bar-info{display:flex; flex-direction:column; align-items:center; gap:8px;}
+  .slide-bar-arrow{
+    display:none; align-items:center; justify-content:center; flex:none;
+    width:32px; height:32px; border-radius:50%;
+    background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-size:14px; line-height:1;
+    box-shadow:0 2px 6px rgba(28,43,57,.18); transition:background .15s, opacity .15s;
+  }
+  .slide-bar-arrow:hover:not(:disabled){background:var(--brass-dark);}
+  .slide-bar-arrow:disabled{opacity:.25; cursor:not-allowed;}
+  @media (hover:none), (pointer:coarse){
+    .slide-bar-arrow{display:flex;}
+  }
+
   /* ---------- REFLEKSI PEMAHAMAN (BINTANG) ---------- */
   .materi-reflection{margin:18px 0 8px;}
   .reflection-box{
@@ -2171,12 +2187,17 @@ function initMateriSlides(){
     viewport.appendChild(nextArrow);
     panel.insertBefore(viewport, h2.nextSibling);
 
-    // Bilah penanda halaman (counter + titik) diletakkan di bawah slide.
+    // Bilah penanda halaman (counter + titik) diletakkan di bawah slide,
+    // diapit tombol panah kiri/kanan khusus pengguna HP (layar sentuh).
     const bar = document.createElement('div');
     bar.className = 'slide-bar';
     bar.innerHTML = `
-      <div class="slide-counter"><b class="cur">1</b> / ${slideEls.length}</div>
-      <div class="slide-dots"></div>
+      <button type="button" class="slide-bar-arrow slide-bar-prev" data-dir="-1" aria-label="Slide sebelumnya">&#10094;</button>
+      <div class="slide-bar-info">
+        <div class="slide-counter"><b class="cur">1</b> / ${slideEls.length}</div>
+        <div class="slide-dots"></div>
+      </div>
+      <button type="button" class="slide-bar-arrow slide-bar-next" data-dir="1" aria-label="Slide berikutnya">&#10095;</button>
     `;
     panel.insertBefore(bar, viewport.nextSibling);
 
@@ -2192,7 +2213,10 @@ function initMateriSlides(){
 
     materiSlideState[panel.id] = { slides: slideEls, index: 0 };
 
-    [prevArrow, nextArrow].forEach(btn=>{
+    const barPrevArrow = bar.querySelector('.slide-bar-prev');
+    const barNextArrow = bar.querySelector('.slide-bar-next');
+
+    [prevArrow, nextArrow, barPrevArrow, barNextArrow].forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const dir = parseInt(btn.dataset.dir, 10);
         const state = materiSlideState[panel.id];
@@ -2210,13 +2234,12 @@ function renderMateriSlide(panelId){
   if(!panel || !state) return;
   state.slides.forEach((s, i)=> s.classList.toggle('current', i === state.index));
 
-  const viewport = panel.querySelector('.slide-viewport');
-  if(viewport){
-    viewport.querySelectorAll('.slide-arrow').forEach(btn=>{
-      const dir = parseInt(btn.dataset.dir, 10);
-      btn.disabled = (dir === -1 && state.index === 0) || (dir === 1 && state.index === state.slides.length - 1);
-    });
-  }
+  // Nonaktifkan tombol panah (baik di samping viewport maupun di bilah
+  // penanda no slide untuk pengguna HP) saat berada di slide pertama/terakhir.
+  panel.querySelectorAll('.slide-arrow, .slide-bar-arrow').forEach(btn=>{
+    const dir = parseInt(btn.dataset.dir, 10);
+    btn.disabled = (dir === -1 && state.index === 0) || (dir === 1 && state.index === state.slides.length - 1);
+  });
 
   const bar = panel.querySelector('.slide-bar');
   if(!bar) return;
