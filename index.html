@@ -662,12 +662,13 @@
     <div class="nav-dropdown" id="navDropdown">
       <button class="tab-btn active" data-tab="materi"><span><span class="num">01</span>Besaran dan Satuan</span><span class="tab-stars" id="tabStars-materi"></span></button>
       <button class="tab-btn" data-tab="konversi"><span><span class="num">02</span>Konversi Satuan</span><span class="tab-stars" id="tabStars-konversi"></span></button>
-      <button class="tab-btn" data-tab="notasi"><span><span class="num">03</span>Notasi Ilmiah</span><span class="tab-stars" id="tabStars-notasi"></span></button>
-      <button class="tab-btn" data-tab="angkapenting"><span><span class="num">04</span>Angka Penting</span><span class="tab-stars" id="tabStars-angkapenting"></span></button>
-      <button class="tab-btn" data-tab="jangkasorong"><span><span class="num">05</span>Jangka Sorong</span><span class="tab-stars" id="tabStars-jangkasorong"></span></button>
-      <button class="tab-btn" data-tab="mikrometer"><span><span class="num">06</span>Mikrometer Sekrup</span><span class="tab-stars" id="tabStars-mikrometer"></span></button>
-      <button class="tab-btn" data-tab="evaluasi"><span class="num">07</span>Evaluasi</button>
-      <button class="tab-btn" data-tab="dev"><span class="num">08</span>Info Pengembang</button>
+      <button class="tab-btn" data-tab="dimensi"><span><span class="num">03</span>Dimensi</span><span class="tab-stars" id="tabStars-dimensi"></span></button>
+      <button class="tab-btn" data-tab="notasi"><span><span class="num">04</span>Notasi Ilmiah</span><span class="tab-stars" id="tabStars-notasi"></span></button>
+      <button class="tab-btn" data-tab="angkapenting"><span><span class="num">05</span>Angka Penting</span><span class="tab-stars" id="tabStars-angkapenting"></span></button>
+      <button class="tab-btn" data-tab="jangkasorong"><span><span class="num">06</span>Jangka Sorong</span><span class="tab-stars" id="tabStars-jangkasorong"></span></button>
+      <button class="tab-btn" data-tab="mikrometer"><span><span class="num">07</span>Mikrometer Sekrup</span><span class="tab-stars" id="tabStars-mikrometer"></span></button>
+      <button class="tab-btn" data-tab="evaluasi"><span class="num">08</span>Evaluasi</button>
+      <button class="tab-btn" data-tab="dev"><span class="num">09</span>Info Pengembang</button>
     </div>
   </nav>
 
@@ -937,9 +938,9 @@
     <div class="materi-next">
       <div class="label">Lanjutkan ke</div>
       <div class="materi-next-row">
-        <button type="button" class="materi-next-card tab-btn" data-tab="notasi">
-          <span class="title">🔬 Notasi Ilmiah</span>
-          <span class="desc">Pelajari cara menuliskan bilangan sangat besar atau sangat kecil secara ringkas.</span>
+        <button type="button" class="materi-next-card tab-btn" data-tab="dimensi">
+          <span class="title">📐 Dimensi</span>
+          <span class="desc">Pelajari cara menuliskan dimensi besaran pokok dan turunan.</span>
         </button>
         <button type="button" class="materi-next-card tab-btn" data-tab="latihan2">
           <span class="title">📝 Latihan 2 — 25 Soal</span>
@@ -949,9 +950,116 @@
     </div>
   </section>
 
-  <!-- ================= NOTASI ILMIAH (MATERI 3) ================= -->
+  <!-- ================= DIMENSI (MATERI 3) ================= -->
+  <section class="panel materi-panel" id="panel-dimensi">
+    <h2><span class="tag">Materi 3</span>Dimensi Besaran Fisika</h2>
+    <p>Setiap besaran pokok memiliki lambang khusus yang disebut <strong>dimensi</strong>. Dimensi menunjukkan "jenis" suatu besaran tanpa memandang satuan apa yang dipakai — misalnya panjang tetap berdimensi [L] baik diukur dalam meter, kilometer, maupun inci. Dimensi besaran turunan diperoleh dengan menggabungkan dimensi besaran-besaran pokok penyusunnya sesuai rumusnya.</p>
+
+    <h3>1. Dimensi Ketujuh Besaran Pokok</h3>
+    <p>Setiap besaran pokok punya lambang dimensi sendiri, ditulis di dalam tanda kurung siku <strong>[ ]</strong>:</p>
+    <table>
+      <caption>Tabel 10 — Dimensi Besaran Pokok</caption>
+      <thead><tr><th>Besaran Pokok</th><th>Satuan SI</th><th>Lambang Dimensi</th></tr></thead>
+      <tbody>
+        <tr><td>Panjang</td><td>meter (m)</td><td class="sym">[L]</td></tr>
+        <tr><td>Massa</td><td>kilogram (kg)</td><td class="sym">[M]</td></tr>
+        <tr><td>Waktu</td><td>sekon (s)</td><td class="sym">[T]</td></tr>
+        <tr><td>Kuat arus listrik</td><td>ampere (A)</td><td class="sym">[I]</td></tr>
+        <tr><td>Suhu</td><td>kelvin (K)</td><td class="sym">[θ]</td></tr>
+        <tr><td>Jumlah zat</td><td>mol (mol)</td><td class="sym">[N]</td></tr>
+        <tr><td>Intensitas cahaya</td><td>kandela (cd)</td><td class="sym">[J]</td></tr>
+      </tbody>
+    </table>
+    <div class="note">💡 Dimensi tidak memiliki angka atau satuan — dimensi hanya menunjukkan jenis besarannya. Karena itu, dimensi tidak berubah walau satuan yang dipakai berbeda-beda.</div>
+
+    <h3>2. Menentukan Dimensi Besaran Turunan</h3>
+    <p>Karena besaran turunan dibentuk dari besaran pokok, dimensinya diperoleh dengan menuliskan rumus besaran tersebut dalam bentuk besaran pokok, lalu mengganti setiap besaran pokok dengan lambang dimensinya.</p>
+    <table>
+      <caption>Tabel 11 — Dimensi Beberapa Besaran Turunan</caption>
+      <thead><tr><th>Besaran Turunan</th><th>Rumus</th><th>Dimensi</th></tr></thead>
+      <tbody>
+        <tr><td>Luas</td><td>panjang × lebar</td><td class="sym">[L]²</td></tr>
+        <tr><td>Volume</td><td>panjang × lebar × tinggi</td><td class="sym">[L]³</td></tr>
+        <tr><td>Massa jenis</td><td>massa ÷ volume</td><td class="sym">[M][L]⁻³</td></tr>
+        <tr><td>Kecepatan</td><td>perpindahan ÷ waktu</td><td class="sym">[L][T]⁻¹</td></tr>
+        <tr><td>Percepatan</td><td>kecepatan ÷ waktu</td><td class="sym">[L][T]⁻²</td></tr>
+        <tr><td>Gaya</td><td>massa × percepatan</td><td class="sym">[M][L][T]⁻²</td></tr>
+        <tr><td>Usaha / Energi</td><td>gaya × perpindahan</td><td class="sym">[M][L]²[T]⁻²</td></tr>
+        <tr><td>Daya</td><td>usaha ÷ waktu</td><td class="sym">[M][L]²[T]⁻³</td></tr>
+        <tr><td>Tekanan</td><td>gaya ÷ luas</td><td class="sym">[M][L]⁻¹[T]⁻²</td></tr>
+        <tr><td>Momentum</td><td>massa × kecepatan</td><td class="sym">[M][L][T]⁻¹</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3. Kegunaan Analisis Dimensi</h3>
+    <p>Menuliskan dimensi suatu besaran bukan sekadar latihan simbol — analisis dimensi punya kegunaan praktis dalam fisika:</p>
+    <ul>
+      <li><strong>Menguji kebenaran suatu persamaan.</strong> Persamaan fisika yang benar harus <em>homogen secara dimensi</em>: dimensi ruas kiri harus sama dengan dimensi ruas kanan.</li>
+      <li><strong>Menurunkan satuan besaran turunan</strong> yang belum diketahui satuannya, cukup dari rumus dan besaran pokok penyusunnya.</li>
+      <li><strong>Membantu mengingat rumus</strong>, karena kombinasi dimensi di kedua ruas persamaan harus selalu cocok.</li>
+    </ul>
+
+    <h3>4. Contoh Soal Langkah demi Langkah</h3>
+    <div class="step-example">
+      <div class="step-q">Contoh 1: Tentukan dimensi dari usaha (W = F × s).</div>
+      <ol>
+        <li>Gaya (F) berdimensi [M][L][T]⁻², dan perpindahan (s) berdimensi [L].</li>
+        <li>Dimensi usaha = dimensi gaya × dimensi perpindahan = [M][L][T]⁻² × [L].</li>
+        <li>Jadi, dimensi usaha = <strong>[M][L]²[T]⁻²</strong>.</li>
+      </ol>
+    </div>
+    <div class="step-example">
+      <div class="step-q">Contoh 2: Buktikan apakah persamaan v = v₀ + a·t homogen secara dimensi.</div>
+      <ol>
+        <li>Ruas kiri: dimensi kecepatan v = [L][T]⁻¹.</li>
+        <li>Ruas kanan suku pertama: dimensi v₀ = [L][T]⁻¹.</li>
+        <li>Ruas kanan suku kedua: dimensi (a·t) = [L][T]⁻² × [T] = [L][T]⁻¹.</li>
+        <li>Semua suku berdimensi sama, [L][T]⁻¹, sehingga persamaan ini <strong>homogen (konsisten secara dimensi)</strong>.</li>
+      </ol>
+    </div>
+
+    <h3>5. Coba Sendiri: Pencari Dimensi Besaran Turunan</h3>
+    <div class="demo">
+      <div class="demo-label">Pilih salah satu besaran turunan, lalu lihat rumus dan dimensinya secara otomatis.</div>
+      <div class="converter">
+        <div class="converter-row">
+          <div class="converter-field" style="flex:1;">
+            <label for="dimensiSelect">Besaran Turunan</label>
+            <select id="dimensiSelect">
+              <option value="luas">Luas</option>
+              <option value="volume">Volume</option>
+              <option value="massajenis">Massa Jenis</option>
+              <option value="kecepatan">Kecepatan</option>
+              <option value="percepatan">Percepatan</option>
+              <option value="gaya">Gaya</option>
+              <option value="usaha">Usaha / Energi</option>
+              <option value="daya">Daya</option>
+              <option value="tekanan">Tekanan</option>
+              <option value="momentum">Momentum</option>
+            </select>
+          </div>
+        </div>
+        <div class="converter-check-row">
+          <label for="dimensiCheckbox"><input type="checkbox" id="dimensiCheckbox"> Tampilkan Jawaban</label>
+        </div>
+        <div class="converter-result is-blurred" id="dimensiResult">Luas = panjang × lebar → [L]²</div>
+      </div>
+    </div>
+
+    <div class="materi-next">
+      <div class="label">Lanjutkan ke</div>
+      <div class="materi-next-row">
+        <button type="button" class="materi-next-card tab-btn" data-tab="notasi">
+          <span class="title">🔬 Notasi Ilmiah</span>
+          <span class="desc">Pelajari cara menuliskan bilangan sangat besar atau sangat kecil secara ringkas.</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NOTASI ILMIAH (MATERI 4) ================= -->
   <section class="panel materi-panel" id="panel-notasi">
-    <h2><span class="tag">Materi 3</span>Notasi Ilmiah (Bentuk Baku)</h2>
+    <h2><span class="tag">Materi 4</span>Notasi Ilmiah (Bentuk Baku)</h2>
     <p>Dalam sains, kita sering bertemu bilangan yang sangat besar (misalnya jarak Bumi ke Matahari) atau sangat kecil (misalnya ukuran sebuah atom). Menuliskannya dalam bentuk biasa akan sangat panjang dan mudah salah hitung. Untuk itu digunakan <strong>notasi ilmiah</strong> (disebut juga bentuk baku), yaitu cara menuliskan bilangan dalam bentuk:</p>
     <div class="note">📐 <strong>a × 10ⁿ</strong>, dengan syarat <strong>1 ≤ a &lt; 10</strong> dan <strong>n</strong> adalah bilangan bulat (boleh positif, negatif, atau nol).</div>
 
@@ -1105,7 +1213,7 @@
 
   <!-- ================= ANGKA PENTING (MATERI 4) ================= -->
   <section class="panel materi-panel" id="panel-angkapenting">
-    <h2><span class="tag">Materi 4</span>Angka Penting</h2>
+    <h2><span class="tag">Materi 5</span>Angka Penting</h2>
     <p>Setiap kali kita mengukur sesuatu, hasilnya tidak akan pernah 100% pasti — selalu ada satu angka terakhir yang nilainya diperkirakan (ditaksir). Semua angka yang benar-benar berasal dari hasil pengukuran, baik angka pasti maupun satu angka taksiran di ujungnya, disebut <strong>angka penting</strong>. Memahami angka penting penting supaya laporan hasil pengukuran atau perhitungan tidak "berpura-pura" lebih teliti daripada alat ukur yang sebenarnya dipakai.</p>
     <div class="note">📏 <strong>Angka penting</strong> = seluruh angka pasti (hasil pembacaan skala) ditambah satu angka taksiran (angka terakhir yang nilainya diperkirakan) dari suatu hasil pengukuran.</div>
 
@@ -1386,7 +1494,7 @@
 
   <!-- ================= JANGKA SORONG (MATERI 5) ================= -->
   <section class="panel materi-panel" id="panel-jangkasorong">
-    <h2><span class="tag">Materi 5</span>Jangka Sorong</h2>
+    <h2><span class="tag">Materi 6</span>Jangka Sorong</h2>
     <p><strong>Jangka sorong</strong> (vernier caliper) adalah alat ukur panjang yang lebih teliti daripada mistar biasa. Alat ini digunakan untuk mengukur benda-benda yang sulit diukur dengan mistar, misalnya diameter luar sebuah pipa, diameter dalam sebuah cincin, atau kedalaman sebuah lubang. Ciri khas jangka sorong adalah adanya <strong>dua skala</strong> yang dibaca bersamaan: skala utama dan skala nonius (skala vernier).</p>
     <div class="note">📐 <strong>Ketelitian jangka sorong</strong> pada umumnya adalah <strong>0,1 mm</strong> atau <strong>0,01 cm</strong>, jauh lebih teliti daripada mistar yang hanya 1 mm.</div>
 
@@ -1542,7 +1650,7 @@
 
   <!-- ================= MIKROMETER SEKRUP (MATERI 6) ================= -->
   <section class="panel materi-panel" id="panel-mikrometer">
-    <h2><span class="tag">Materi 6</span>Mikrometer Sekrup</h2>
+    <h2><span class="tag">Materi 7</span>Mikrometer Sekrup</h2>
     <p><strong>Mikrometer sekrup</strong> (micrometer screw gauge) adalah alat ukur panjang yang paling teliti di antara mistar dan jangka sorong. Alat ini digunakan untuk mengukur benda-benda yang sangat tipis atau sangat kecil, misalnya tebal kertas, diameter kawat, atau diameter kabel. Mikrometer sekrup bekerja berdasarkan prinsip putaran sekrup, sehingga sering disebut juga <strong>skrup mikrometer</strong>.</p>
     <div class="note">🔩 <strong>Ketelitian mikrometer sekrup</strong> adalah <strong>0,01 mm</strong>, sepuluh kali lebih teliti daripada jangka sorong.</div>
 
@@ -2125,17 +2233,18 @@ document.addEventListener('keydown', (e)=>{
 /* ============================================================
    TAB NAVIGATION
 ============================================================ */
-const panels = { materi: document.getElementById('panel-materi'), konversi: document.getElementById('panel-konversi'), notasi: document.getElementById('panel-notasi'), angkapenting: document.getElementById('panel-angkapenting'), latihan: document.getElementById('panel-latihan'), latihan2: document.getElementById('panel-latihan2'), latihan3: document.getElementById('panel-latihan3'), latihan4: document.getElementById('panel-latihan4'), jangkasorong: document.getElementById('panel-jangkasorong'), latihan5: document.getElementById('panel-latihan5'), mikrometer: document.getElementById('panel-mikrometer'), latihan6: document.getElementById('panel-latihan6'), evaluasi: document.getElementById('panel-evaluasi'), dev: document.getElementById('panel-dev') };
+const panels = { materi: document.getElementById('panel-materi'), konversi: document.getElementById('panel-konversi'), dimensi: document.getElementById('panel-dimensi'), notasi: document.getElementById('panel-notasi'), angkapenting: document.getElementById('panel-angkapenting'), latihan: document.getElementById('panel-latihan'), latihan2: document.getElementById('panel-latihan2'), latihan3: document.getElementById('panel-latihan3'), latihan4: document.getElementById('panel-latihan4'), jangkasorong: document.getElementById('panel-jangkasorong'), latihan5: document.getElementById('panel-latihan5'), mikrometer: document.getElementById('panel-mikrometer'), latihan6: document.getElementById('panel-latihan6'), evaluasi: document.getElementById('panel-evaluasi'), dev: document.getElementById('panel-dev') };
 
 const tabMeta = {
   materi:{num:'01',label:'Besaran dan Satuan'},
   konversi:{num:'02',label:'Konversi Satuan'},
-  notasi:{num:'03',label:'Notasi Ilmiah'},
-  angkapenting:{num:'04',label:'Angka Penting'},
-  jangkasorong:{num:'05',label:'Jangka Sorong'},
-  mikrometer:{num:'06',label:'Mikrometer Sekrup'},
-  evaluasi:{num:'07',label:'Evaluasi'},
-  dev:{num:'08',label:'Info Pengembang'},
+  dimensi:{num:'03',label:'Dimensi'},
+  notasi:{num:'04',label:'Notasi Ilmiah'},
+  angkapenting:{num:'05',label:'Angka Penting'},
+  jangkasorong:{num:'06',label:'Jangka Sorong'},
+  mikrometer:{num:'07',label:'Mikrometer Sekrup'},
+  evaluasi:{num:'08',label:'Evaluasi'},
+  dev:{num:'09',label:'Info Pengembang'},
   latihan:{num:'—',label:'Latihan'},
   latihan2:{num:'—',label:'Latihan 2'},
   latihan3:{num:'—',label:'Latihan 3'},
@@ -2386,6 +2495,37 @@ function initNotasiConverter(){
   const lockResult = bindResultCheckbox('notasiCheckbox', 'notasiResult');
   input.addEventListener('input', ()=>{ updateNotasiResult(); lockResult(); });
   updateNotasiResult();
+  lockResult();
+}
+
+/* ============================================================
+   ALAT PENCARI DIMENSI BESARAN TURUNAN (MATERI 3)
+============================================================ */
+const DIMENSI_DATA = {
+  luas:        { label:'Luas',            rumus:'panjang × lebar',                 dimensi:'[L]²' },
+  volume:      { label:'Volume',          rumus:'panjang × lebar × tinggi',        dimensi:'[L]³' },
+  massajenis:  { label:'Massa Jenis',     rumus:'massa ÷ volume',                  dimensi:'[M][L]⁻³' },
+  kecepatan:   { label:'Kecepatan',       rumus:'perpindahan ÷ waktu',             dimensi:'[L][T]⁻¹' },
+  percepatan:  { label:'Percepatan',      rumus:'kecepatan ÷ waktu',               dimensi:'[L][T]⁻²' },
+  gaya:        { label:'Gaya',            rumus:'massa × percepatan',              dimensi:'[M][L][T]⁻²' },
+  usaha:       { label:'Usaha / Energi',  rumus:'gaya × perpindahan',              dimensi:'[M][L]²[T]⁻²' },
+  daya:        { label:'Daya',            rumus:'usaha ÷ waktu',                   dimensi:'[M][L]²[T]⁻³' },
+  tekanan:     { label:'Tekanan',         rumus:'gaya ÷ luas',                     dimensi:'[M][L]⁻¹[T]⁻²' },
+  momentum:    { label:'Momentum',        rumus:'massa × kecepatan',               dimensi:'[M][L][T]⁻¹' }
+};
+function updateDimensiResult(){
+  const sel = document.getElementById('dimensiSelect');
+  const resultEl = document.getElementById('dimensiResult');
+  const data = DIMENSI_DATA[sel.value];
+  if(!data) return;
+  resultEl.innerHTML = `${data.label} = ${data.rumus} → <strong>${data.dimensi}</strong>`;
+}
+function initDimensiTool(){
+  const sel = document.getElementById('dimensiSelect');
+  if(!sel) return;
+  const lockResult = bindResultCheckbox('dimensiCheckbox', 'dimensiResult');
+  sel.addEventListener('change', ()=>{ updateDimensiResult(); lockResult(); });
+  updateDimensiResult();
   lockResult();
 }
 
@@ -3988,6 +4128,7 @@ bindQuizStart({
 }, latihan7Engine);
 
 initConverter();
+initDimensiTool();
 initNotasiConverter();
 initAPConverter();
 initJSConverter();
@@ -3999,7 +4140,7 @@ initMKConverter();
    kartu "Lanjutkan ke.../Latihan"), lalu menampilkan hasilnya
    sebagai bintang di sebelah nama materi pada Menu Materi.
 ============================================================ */
-const REFLECTION_MATERI_IDS = ['materi','konversi','notasi','angkapenting','jangkasorong','mikrometer'];
+const REFLECTION_MATERI_IDS = ['materi','konversi','dimensi','notasi','angkapenting','jangkasorong','mikrometer'];
 const materiReflections = {}; // { panelId: 1..5 }
 
 const REFLECTION_MESSAGES = {
