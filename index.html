@@ -38,22 +38,22 @@
   /* ---------- QUIZ START CARD (reuses login-card look) ---------- */
   .login-card{
     background:var(--paper); max-width:520px; width:100%;
-    border-top:5px solid var(--brass); padding:28px 30px; margin:4px 0 26px;
+    border-top:5px solid var(--brass); padding:22px 28px; margin:4px 0 22px;
   }
-  .login-card .eyebrow{color:var(--brass-dark);}
-  .login-card h1{font-size:20px; margin:0 0 6px;}
-  .login-card p.subtitle{margin-bottom:22px;}
-  .field{margin-bottom:16px;}
+  .login-card .eyebrow{color:var(--brass-dark); margin-bottom:4px;}
+  .login-card h1{font-size:20px; margin:0 0 4px; line-height:1.15;}
+  .login-card p.subtitle{margin-bottom:14px; line-height:1.4;}
+  .field{margin-bottom:10px;}
   .field label{
     display:block; font-family:'IBM Plex Mono',monospace; font-size:12px;
-    letter-spacing:.05em; color:var(--ink-soft); margin-bottom:6px; text-transform:uppercase;
+    letter-spacing:.05em; color:var(--ink-soft); margin-bottom:4px; text-transform:uppercase;
   }
   .field input{
-    width:100%; padding:11px 12px; font-size:15px; font-family:'IBM Plex Sans',sans-serif;
+    width:100%; padding:9px 12px; font-size:15px; font-family:'IBM Plex Sans',sans-serif;
     border:1.5px solid var(--paper-line); background:#fff; color:var(--ink);
   }
   .field input:focus{border-color:var(--brass); outline:none;}
-  .login-error{color:var(--wrong); font-size:13px; margin:-6px 0 14px; display:none; font-family:'IBM Plex Mono',monospace;}
+  .login-error{color:var(--wrong); font-size:13px; margin:-2px 0 10px; display:none; font-family:'IBM Plex Mono',monospace;}
   .student-badge{
     display:inline-flex; gap:14px; align-items:center; font-family:'IBM Plex Mono',monospace;
     font-size:12.5px; color:var(--ink-soft); background:#fff; border:1px solid var(--paper-line);
@@ -73,7 +73,8 @@
   .opening-screen h1{font-size:clamp(28px,5vw,44px); margin-bottom:10px;}
   .opening-screen .subtitle{font-size:16px; max-width:560px;}
   .opening-screen .ruler{width:100%; max-width:560px;}
-  .opening-screen #startAppBtn{margin-top:26px;}
+  .opening-screen #startAppBtn{margin-top:6px;}
+  .opening-screen #studentDataCard{margin-bottom:6px;}
 
   /* ---------- NAV STICKY (bar ringkas + dropdown) ---------- */
   .app-nav-sticky{position:sticky; top:0; z-index:20; margin:0 0 26px;}
@@ -185,42 +186,45 @@
   .demo-readout{font-family:'IBM Plex Mono',monospace; font-size:14px; color:var(--brass-dark); font-weight:600;}
 
   /* ---------- MATERI SLIDE MODE ---------- */
+  .slide-viewport{position:relative; touch-action:pan-y;}
+  .slide-arrow{
+    display:none; position:absolute; top:50%; transform:translateY(-50%);
+    width:38px; height:38px; border-radius:50%; align-items:center; justify-content:center;
+    background:var(--ink); color:var(--paper); border:none; cursor:pointer; font-size:16px; line-height:1;
+    z-index:5; box-shadow:0 3px 8px rgba(28,43,57,.18); transition:background .15s, opacity .15s;
+  }
+  .slide-arrow:hover:not(:disabled){background:var(--brass-dark);}
+  .slide-arrow:disabled{opacity:.25; cursor:not-allowed;}
+  .slide-arrow-prev{left:-18px;}
+  .slide-arrow-next{right:-18px;}
+  /* Tombol panah hanya ditampilkan untuk perangkat dengan mouse (hover + pointer presisi);
+     di layar sentuh, navigasi dilakukan dengan swipe/sapuan jari. */
+  @media (hover:hover) and (pointer:fine){
+    .slide-arrow{display:flex;}
+    .slide-viewport{padding:0 34px;}
+  }
+
+  .materi-slide{display:none; animation:fade .3s ease;}
+  .materi-slide.current{display:block;}
+  .materi-slide h3{margin-top:0;}
+
+  /* Penanda halaman (titik + counter) di bawah slide */
   .slide-bar{
-    display:flex; align-items:center; gap:14px; margin:14px 0 26px;
-    background:#FAFAF6; border:1.5px solid var(--paper-line); border-left:4px solid var(--brass);
-    padding:6px 16px;
-    position:sticky; top:var(--nav-height, 54px); z-index:10;
-    box-shadow:0 4px 10px rgba(28,43,57,.06);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    margin:20px 0 4px; padding-top:14px; border-top:1px solid var(--paper-line);
   }
-  .slide-bar .slide-nav-btn{
-    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.02em;
-    background:var(--ink); color:var(--paper); border:none; padding:4px 16px; cursor:pointer;
-    display:flex; align-items:center; gap:6px; flex:none; transition:background .15s;
-  }
-  .slide-bar .slide-nav-btn:hover:not(:disabled){background:var(--brass-dark);}
-  .slide-bar .slide-nav-btn:disabled{opacity:.35; cursor:not-allowed;}
-  .slide-bar .slide-progress{flex:1; display:flex; flex-direction:column; gap:6px; min-width:0;}
   .slide-bar .slide-counter{
     font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--ink-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    color:var(--ink-soft);
   }
   .slide-bar .slide-counter b{color:var(--brass-dark);}
-  .slide-dots{display:flex; gap:5px; flex-wrap:wrap;}
+  .slide-dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center;}
   .slide-dot{
     width:26px; height:6px; background:var(--paper-line); border:none; cursor:pointer; padding:0;
     transition:background .15s, width .15s;
   }
   .slide-dot:hover{background:var(--brass-light);}
   .slide-dot.current{background:var(--brass); width:38px;}
-
-  .materi-slide{display:none; animation:fade .3s ease;}
-  .materi-slide.current{display:block;}
-  .materi-slide h3{margin-top:0;}
-
-  @media (max-width:600px){
-    .slide-bar{flex-wrap:wrap;}
-    .slide-bar .slide-progress{order:3; flex-basis:100%;}
-  }
 
   /* ---------- REFLEKSI PEMAHAMAN (BINTANG) ---------- */
   .materi-reflection{margin:18px 0 8px;}
@@ -626,7 +630,7 @@
   <!-- ================= OPENING SCREEN (SAMPUL) ================= -->
   <div class="opening-screen" id="openingScreen">
     <div class="eyebrow">Lembar Kerja Peserta Didik · Fisika</div>
-    <h1>Besaran Pokok, Besaran Turunan &amp; Satuan</h1>
+    <h1>PENGUKURAN Fisika SMA</h1>
     <p class="subtitle">Mengukur dunia di sekitar kita — dari panjang meja hingga kecepatan sepeda.</p>
     <div class="ruler" id="headerRuler" style="margin-top:16px;"></div>
 
@@ -636,11 +640,11 @@
       <p class="subtitle">Isi data dirimu sekali di sini — akan otomatis digunakan untuk semua latihan dan evaluasi.</p>
       <div class="field">
         <label for="studentNameInput">Nama Lengkap</label>
-        <input type="text" id="studentNameInput" placeholder="Contoh: Ayu Lestari">
+        <input type="text" id="studentNameInput" placeholder="B.J. Habibi">
       </div>
       <div class="field">
         <label for="studentClassInput">Kelas</label>
-        <input type="text" id="studentClassInput" placeholder="Contoh: VII-A">
+        <input type="text" id="studentClassInput" placeholder="X-12">
       </div>
       <div class="login-error" id="studentDataError">Nama dan kelas wajib diisi terlebih dahulu.</div>
     </div>
@@ -1873,7 +1877,7 @@
     </div>
   </section>
 
-  <footer>LKPD DIGITAL · BESARAN POKOK, TURUNAN &amp; SATUAN</footer>
+  <footer>LKPD Digital PENGUKURAN</footer>
 
   <!-- Modal keterangan bagian alat (dipakai bersama oleh Jangka Sorong & Mikrometer,
        diletakkan di luar section .panel supaya tetap tampil di tab manapun) -->
@@ -2135,27 +2139,46 @@ function initMateriSlides(){
     if(current.length) groups.push(current);
     if(groups.length < 2) return; // tidak cukup konten untuk mode slide
 
+    // Viewport pembungkus slide (tempat menempelnya panah & area swipe).
+    const viewport = document.createElement('div');
+    viewport.className = 'slide-viewport';
+
     // Bangun elemen slide dari tiap grup.
     const slideEls = groups.map((group, i)=>{
       const slide = document.createElement('div');
       slide.className = 'materi-slide' + (group[0].classList.contains('materi-next') ? ' is-closing' : '');
       group.forEach(el=> slide.appendChild(el));
-      panel.appendChild(slide);
+      viewport.appendChild(slide);
       return slide;
     });
 
-    // Bangun bilah navigasi slide.
+    // Tombol panah kiri/kanan (muncul hanya untuk pengguna mouse, lihat CSS).
+    const prevArrow = document.createElement('button');
+    prevArrow.type = 'button';
+    prevArrow.className = 'slide-arrow slide-arrow-prev';
+    prevArrow.dataset.dir = '-1';
+    prevArrow.setAttribute('aria-label', 'Slide sebelumnya');
+    prevArrow.innerHTML = '&#10094;';
+
+    const nextArrow = document.createElement('button');
+    nextArrow.type = 'button';
+    nextArrow.className = 'slide-arrow slide-arrow-next';
+    nextArrow.dataset.dir = '1';
+    nextArrow.setAttribute('aria-label', 'Slide berikutnya');
+    nextArrow.innerHTML = '&#10095;';
+
+    viewport.appendChild(prevArrow);
+    viewport.appendChild(nextArrow);
+    panel.insertBefore(viewport, h2.nextSibling);
+
+    // Bilah penanda halaman (counter + titik) diletakkan di bawah slide.
     const bar = document.createElement('div');
     bar.className = 'slide-bar';
     bar.innerHTML = `
-      <button type="button" class="slide-nav-btn" data-dir="-1">← Sebelumnya</button>
-      <div class="slide-progress">
-        <div class="slide-counter"><b class="cur">1</b> / ${slideEls.length}</div>
-        <div class="slide-dots"></div>
-      </div>
-      <button type="button" class="slide-nav-btn" data-dir="1">Selanjutnya →</button>
+      <div class="slide-counter"><b class="cur">1</b> / ${slideEls.length}</div>
+      <div class="slide-dots"></div>
     `;
-    panel.insertBefore(bar, h2.nextSibling);
+    panel.insertBefore(bar, viewport.nextSibling);
 
     const dotsWrap = bar.querySelector('.slide-dots');
     slideEls.forEach((_, i)=>{
@@ -2169,13 +2192,28 @@ function initMateriSlides(){
 
     materiSlideState[panel.id] = { slides: slideEls, index: 0 };
 
-    bar.querySelectorAll('.slide-nav-btn').forEach(btn=>{
+    [prevArrow, nextArrow].forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const dir = parseInt(btn.dataset.dir, 10);
         const state = materiSlideState[panel.id];
         goToMateriSlide(panel.id, state.index + dir);
       });
     });
+
+    // Navigasi swipe/sapuan untuk layar sentuh.
+    let touchStartX = 0, touchStartY = 0;
+    viewport.addEventListener('touchstart', (e)=>{
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive:true });
+    viewport.addEventListener('touchend', (e)=>{
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      const dy = e.changedTouches[0].screenY - touchStartY;
+      const SWIPE_THRESHOLD = 40;
+      if(Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+      const state = materiSlideState[panel.id];
+      goToMateriSlide(panel.id, state.index + (dx < 0 ? 1 : -1));
+    }, { passive:true });
 
     renderMateriSlide(panel.id);
   });
@@ -2187,13 +2225,17 @@ function renderMateriSlide(panelId){
   if(!panel || !state) return;
   state.slides.forEach((s, i)=> s.classList.toggle('current', i === state.index));
 
+  const viewport = panel.querySelector('.slide-viewport');
+  if(viewport){
+    viewport.querySelectorAll('.slide-arrow').forEach(btn=>{
+      const dir = parseInt(btn.dataset.dir, 10);
+      btn.disabled = (dir === -1 && state.index === 0) || (dir === 1 && state.index === state.slides.length - 1);
+    });
+  }
+
   const bar = panel.querySelector('.slide-bar');
   if(!bar) return;
   bar.querySelector('.slide-counter .cur').textContent = state.index + 1;
-  bar.querySelectorAll('.slide-nav-btn').forEach(btn=>{
-    const dir = parseInt(btn.dataset.dir, 10);
-    btn.disabled = (dir === -1 && state.index === 0) || (dir === 1 && state.index === state.slides.length - 1);
-  });
   bar.querySelectorAll('.slide-dot').forEach((dot, i)=>{
     dot.classList.toggle('current', i === state.index);
   });
